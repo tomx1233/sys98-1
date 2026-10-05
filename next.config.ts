@@ -1,6 +1,26 @@
 import type { NextConfig } from "next";
 
-const pages = ["remove-bg", "qrcode", "checker", "audio", "image", "roblox-audio", "roblox-user", "terms", "privacy"];
+const pages = [
+  "remove-bg",
+  "qrcode",
+  "checker",
+  "audio",
+  "image",
+  "roblox-audio",
+  "roblox-user",
+  "roblox-group",
+  "roblox-game",
+  "roblox-avatar",
+  "roblox-friends",
+  "roblox-accountage",
+  "roblox-username",
+  "roblox-catalog",
+  "devex",
+  "text-tools",
+  "crypto",
+  "terms",
+  "privacy",
+];
 
 const nextConfig: NextConfig = {
   // These audio-decoder packages (used by the Discord bot's /analyze) contain an optional Web Worker
