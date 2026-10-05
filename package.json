@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "tsx --tsconfig tsconfig.json tests/bot-commands.test.ts && tsx --tsconfig tsconfig.json tests/audio-analysis.test.ts",
     "postinstall": "prisma generate && node scripts/copy-ffmpeg.mjs",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
@@ -49,6 +50,7 @@
     "prisma": "^7.10.0",
     "sharp": "^0.33.5",
     "tailwindcss": "^4",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }

@@ -668,7 +668,7 @@ async function renderUserView(deps: BotDeps, view: UserView, id: string, page: n
     case "prevnames": {
       const r = await deps.prevNames(id);
       if (!r.ok) return { embed: errorEmbed(r.error), totalPages: 1 };
-      const { slice, page: p, totalPages } = paginate(r.names, page);
+      const { slice, totalPages } = paginate(r.names, page);
       return { embed: { title: clip(escapeMd(r.name) + " · previous usernames", 240), url: r.url, color: TEAL, description: r.names.length ? slice.map((n) => `• ${escapeMd(n)}`).join("\n") : "No past usernames.", footer: { text: `system98 · ${r.names.length} names` } }, totalPages };
     }
     case "friends": {

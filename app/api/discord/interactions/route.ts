@@ -191,13 +191,20 @@ const deps: BotDeps = {
     if (!/^\d{5,25}$/.test(applicationId) || !/^[\w-]{20,}$/.test(token)) return;
     const url = `https://discord.com/api/v10/webhooks/${applicationId}/${token}/messages/@original`;
     let res: Response;
-    if (files?.length) {
-      const form = new FormData();
-      form.append("payload_json", JSON.stringify(body));
-      files.forEach((f: BotFile, i: number) => form.append(`files[${i}]`, new Blob([new Uint8Array(f.data)], { type: f.contentType }), f.name));
-      res = await fetch(url, { method: "PATCH", body: form, signal: AbortSignal.timeout(20000) });
-    } else {
-      res = await fetch(url, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body), signal: AbortSignal.timeout(8000) });
+    try {
+      if (files?.length) {
+        const form = new FormData();
+        form.append("payload_json", JSON.stringify(body));
+        files.forEach((f: BotFile, i: number) => form.append(`files[${i}]`, new Blob([new Uint8Array(f.data)], { type: f.contentType }), f.name));
+        res = await fetch(url, { method: "PATCH", body: form, signal: AbortSignal.timeout(20000) });
+      } else {
+        res = await fetch(url, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body), signal: AbortSignal.timeout(8000) });
+      }
+    } catch (err) {
+      // network hiccup while delivering the follow-up edit — nothing we can do, and
+      // it shouldn't bubble up as an unhandled after() error
+      console.error("[discord] editing the reply failed:", (err as Error).message);
+      return;
     }
     if (!res.ok) console.error("[discord] editing the reply failed:", res.status, await res.text().catch(() => ""));
   },

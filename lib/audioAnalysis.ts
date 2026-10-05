@@ -207,7 +207,7 @@ async function decodeInto(bytes: Uint8Array, sn: Sniffed, an: Analyzer) {
 function decodeWav(b: Uint8Array, an: Analyzer) {
   let o = 12, fmt: { tag: number; ch: number; sr: number; bits: number } | null = null, dataAt = -1, dataLen = 0;
   while (o + 8 <= b.length) {
-    const id = ascii(b, o, 4); let sz = u32le(b, o + 4);
+    const id = ascii(b, o, 4); const sz = u32le(b, o + 4);
     if (id === "fmt ") fmt = { tag: u16le(b, o + 8), ch: u16le(b, o + 10), sr: u32le(b, o + 12), bits: u16le(b, o + 22) };
     if (id === "data") { dataAt = o + 8; dataLen = Math.min(sz, b.length - dataAt); break; }
     o += 8 + sz + (sz & 1);
