@@ -18,6 +18,7 @@ const pages = [
   "roblox-usergroups",
   "roblox-asseticon",
   "shazam",
+  "cr",
   "devex",
   "text-tools",
   "crypto",

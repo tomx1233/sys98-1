@@ -7,6 +7,7 @@ import * as RX from "@/lib/robloxExtra";
 import QRCode from "qrcode";
 import { analyzeAudio, renderWaveformPng, AnalysisError } from "@/lib/audioAnalysis";
 import { recognizeSong } from "@/lib/songRecognition";
+import { processCr } from "@/lib/cr";
 import { rateLimit } from "@/lib/rateLimit";
 import { siteUrl } from "@/lib/support";
 import { getCryptoPrice } from "@/lib/cryptoPrice";
@@ -152,6 +153,11 @@ const deps: BotDeps = {
   },
   analyzeFile,
   recognizeSong: recognizeFile,
+  crFile: async (att, preset, userId) => {
+    const dl = await downloadAttachment(att);
+    if (!dl.ok) return { ok: false as const, error: dl.error };
+    return processCr(dl.bytes, preset, { userId, auddToken: process.env.AUDD_API_TOKEN });
+  },
   avatar: (input, kind) => RX.getAvatar(input, kind, robloxGetJson).then(friendly),
   accountAge: (input) => RX.getAccountAge(input, robloxGetJson).then(friendly),
   friends: (input) => cachedView(vkey("friends", input), () => RX.getFriends(input, robloxGetJson).then(friendly)),

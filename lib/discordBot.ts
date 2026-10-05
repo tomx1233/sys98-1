@@ -9,6 +9,7 @@ import type { RobloxAudio } from "./robloxAudio";
 import type { RobloxUser } from "./robloxUser";
 import type { Analysis } from "./audioAnalysis";
 import type { RecognizedSong } from "./songRecognition";
+import type { CrMeta } from "./cr";
 import type {
   AvatarKind, GroupInfo, AssetInfo, GameInfo, GroupDetail, AvatarDetail, UserGame,
 } from "./robloxExtra";
@@ -178,6 +179,28 @@ export function songEmbed(s: RecognizedSong): Embed {
     thumbnail: s.artwork ? { url: s.artwork } : undefined,
     fields,
     footer: { text: "system98 · song id via AudD" },
+  };
+}
+
+export function crEmbed(name: string, meta: CrMeta): Embed {
+  const fields: Field[] = [];
+  field(fields, "Preset", meta.preset === "autofit" ? "Auto-Fit" : meta.preset);
+  field(fields, "Pitch", `${meta.pitch >= 0 ? "+" : ""}${meta.pitch.toFixed(1)} st`, true);
+  field(fields, "Tempo", `${meta.tempo.toFixed(2)}x`, true);
+  field(fields, "Duration", mmss(meta.durationSeconds), true);
+  field(fields, "Sample rate", `${meta.sampleRate} Hz`, true);
+  const verdict =
+    meta.preset !== "autofit"
+      ? undefined
+      : meta.clean === true
+        ? "✅ The recogniser couldn't identify any part of the processed file."
+        : "⚠️ The strongest shift still matched part of the file, so this is a best effort — not guaranteed.";
+  return {
+    title: clip(escapeMd(name), 250),
+    description: verdict,
+    color: TEAL,
+    fields,
+    footer: { text: "system98 · cr (key/speed shift)" },
   };
 }
 
@@ -352,6 +375,11 @@ export interface BotDeps {
   lookupUser: (input: string) => Promise<{ ok: true; user: RobloxUser } | { ok: false; error: string }>;
   analyzeFile: (att: AttachmentInfo) => Promise<{ ok: true; analysis: Analysis; waveformPng: Buffer } | { ok: false; error: string }>;
   recognizeSong: (att: AttachmentInfo) => Promise<{ ok: true; song: RecognizedSong } | { ok: false; error: string }>;
+  /** /cr: apply a key/speed shift preset (or Auto-Fit) to an audio file; returns the shifted MP3 + spectrogram */
+  crFile: (att: AttachmentInfo, preset: string, userId: string) => Promise<
+    | { ok: true; mp3: Buffer; spectrogram: Buffer; meta: CrMeta }
+    | { ok: false; error: string }
+  >;
   // extra Roblox lookups (all return a friendly error string on failure)
   avatar: (input: string, kind: AvatarKind) => Promise<{ ok: true; name: string; id: string; image: string; url: string } | { ok: false; error: string }>;
   accountAge: (input: string) => Promise<{ ok: true; name: string; id: string; created: string; days: number; url: string } | { ok: false; error: string }>;
@@ -789,6 +817,7 @@ export function handleInteraction(body: Interaction, deps: BotDeps): Handled {
           "`/user user:<name, id or link>` public profile info of a Roblox account",
           "`/analyze file:` loudness, peak, duration, bitrate and a waveform",
           "`/shazam file:` identify the song (title, artist, album, links)",
+          "`/cr file: preset:` key/speed-shift an audio file (presets or Auto-Fit) → mp3 + spectrogram",
           "**Roblox:** `/user` `/avatar` `/bust` `/headshot` `/accountage` `/friends` `/arefriends` `/usergroups` `/group` `/audio` `/assetid` `/asseticon` `/game` `/gamepass` `/bundle` `/devex` `/username` `/wearing` `/universe`",
           "`/qr text:` make a QR code",
           "`/userinfo user:` Discord account info",
@@ -800,7 +829,7 @@ export function handleInteraction(body: Interaction, deps: BotDeps): Handled {
     };
   }
   const LOOKUP = new Set(["audio", "user", "avatar", "bust", "headshot", "accountage", "friends", "arefriends", "usergroups", "group", "assetid", "asseticon", "game", "gamepass", "bundle", "devex", "qr", "username", "wearing", "universe", "userinfo", "xrp", "textnato", "textreverse", "textzalgo"]);
-  if (name !== "analyze" && name !== "shazam" && !LOOKUP.has(name)) return { response: ephemeral("Unknown command.") };
+  if (name !== "analyze" && name !== "shazam" && name !== "cr" && !LOOKUP.has(name)) return { response: ephemeral("Unknown command.") };
   if (!deps.allow(userId)) return { response: ephemeral("Easy, that's a lot of lookups in a minute. Try again shortly.") };
 
   const appId = body.application_id ?? "";
@@ -848,6 +877,37 @@ export function handleInteraction(body: Interaction, deps: BotDeps): Handled {
       await deps.editOriginal(appId, token, { ...(payload as object), allowed_mentions: NO_PINGS });
     };
     return { response: { type: 5 }, after: finishShazam };
+  }
+
+  if (name === "cr") {
+    const fileOpt = body.data.options?.find((o) => o.name === "file");
+    const preset = String(body.data.options?.find((o) => o.name === "preset")?.value ?? "");
+    const att = typeof fileOpt?.value === "string" ? body.data.resolved?.attachments?.[fileOpt.value] : undefined;
+    if (!att) return { response: ephemeral("Couldn't find that attachment, try again.") };
+    const finishCr = async () => {
+      let payload: unknown;
+      let files: BotFile[] | undefined;
+      try {
+        const r = await deps.crFile({ url: att.url, filename: att.filename, size: att.size, contentType: att.content_type }, preset, userId);
+        if (r.ok) {
+          // export under the source's own name + "_cr" so the shifted copy is identifiable ("song.mp3" -> "song_cr.mp3")
+          const stem = (att.filename || "audio").replace(/\.[^.]+$/, "") || "audio";
+          const crName = `${stem}_cr.mp3`;
+          payload = { embeds: [{ ...crEmbed(crName, r.meta), image: { url: "attachment://spectrogram.png" } }] };
+          files = [
+            { name: crName, data: r.mp3, contentType: "audio/mpeg" },
+            { name: "spectrogram.png", data: r.spectrogram, contentType: "image/png" },
+          ];
+        } else {
+          payload = { embeds: [errorEmbed(r.error)] };
+        }
+      } catch (err) {
+        console.error("[discord] cr failed:", err);
+        payload = { embeds: [errorEmbed("Something went wrong processing that file.")] };
+      }
+      await deps.editOriginal(appId, token, { ...(payload as object), allowed_mentions: NO_PINGS }, files);
+    };
+    return { response: { type: 5 }, after: finishCr };
   }
 
   const optOf = (n: string) => body.data?.options?.find((o) => o.name === n)?.value;

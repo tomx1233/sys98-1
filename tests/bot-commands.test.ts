@@ -51,6 +51,7 @@ const deps: BotDeps = {
   },
   analyzeFile: async () => ({ ok: false as const, error: "no files in this test" }),
   recognizeSong: async () => ({ ok: false as const, error: "no files in this test" }),
+  crFile: async () => ({ ok: false as const, error: "no files in this test" }),
   avatar: (input, kind) => RX.getAvatar(input, kind, fakeGetJson).then(friendly),
   accountAge: (input) => RX.getAccountAge(input, fakeGetJson).then(friendly),
   friends: (input) => RX.getFriends(input, fakeGetJson).then(friendly),
@@ -302,6 +303,8 @@ async function main() {
     ok(a.response.type === 4 && /Couldn't find that attachment/.test(a.response.data?.content ?? ""), "/analyze missing attachment", a.response.data);
     const s = await run("shazam", [{ name: "file", value: "att-1" }]);
     ok(s.response.type === 4 && /Couldn't find that attachment/.test(s.response.data?.content ?? ""), "/shazam missing attachment", s.response.data);
+    const c = await run("cr", [{ name: "file", value: "att-1" }, { name: "preset", value: "balanced" }]);
+    ok(c.response.type === 4 && /Couldn't find that attachment/.test(c.response.data?.content ?? ""), "/cr missing attachment", c.response.data);
   }
 
   // ---------- component interactions (dropdown + pagination) ----------
