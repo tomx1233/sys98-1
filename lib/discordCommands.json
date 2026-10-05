@@ -15,7 +15,7 @@
     "options": [
       {
         "name": "file",
-        "description": "MP3, OGG (Vorbis or Opus), WAV or FLAC \u2014 up to 20 MB",
+        "description": "MP3, OGG (Vorbis or Opus), WAV or FLAC — up to 20 MB",
         "type": 11,
         "required": true
       }
@@ -37,9 +37,59 @@
     "options": [
       {
         "name": "file",
-        "description": "An audio file with music in it \u2014 up to 20 MB",
+        "description": "An audio file with music in it — up to 20 MB",
         "type": 11,
         "required": true
+      }
+    ]
+  },
+  {
+    "name": "cr",
+    "description": "Apply a key/speed shift preset to an audio file, or Auto-Fit a shift the recogniser can't identify",
+    "type": 1,
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
+    "options": [
+      {
+        "name": "file",
+        "description": "The audio file to process — MP3, OGG, WAV or FLAC, up to 20 MB",
+        "type": 11,
+        "required": true
+      },
+      {
+        "name": "preset",
+        "description": "The shift preset to apply, or Auto-Fit to find a clean shift",
+        "type": 3,
+        "required": true,
+        "choices": [
+          {
+            "name": "Subtle (+1.5 st, 1.04x)",
+            "value": "subtle"
+          },
+          {
+            "name": "Balanced (+2.0 st, 1.07x)",
+            "value": "balanced"
+          },
+          {
+            "name": "Stealth (+2.5 st, 1.10x)",
+            "value": "stealth"
+          },
+          {
+            "name": "Aggressive (+3.0 st, 1.12x)",
+            "value": "aggressive"
+          },
+          {
+            "name": "Auto-Fit (closest clean shift)",
+            "value": "autofit"
+          }
+        ]
       }
     ]
   },
@@ -446,78 +496,182 @@
     "name": "username",
     "description": "Check if a Roblox username looks available",
     "type": 1,
-    "integration_types": [0, 1],
-    "contexts": [0, 1, 2],
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
     "options": [
-      { "name": "username", "description": "Username to check", "type": 3, "required": true, "max_length": 20 }
+      {
+        "name": "username",
+        "description": "Username to check",
+        "type": 3,
+        "required": true,
+        "max_length": 20
+      }
     ]
   },
   {
     "name": "wearing",
     "description": "See what a Roblox user is currently wearing",
     "type": 1,
-    "integration_types": [0, 1],
-    "contexts": [0, 1, 2],
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
     "options": [
-      { "name": "user", "description": "Username, user ID or profile link", "type": 3, "required": true, "max_length": 300 }
+      {
+        "name": "user",
+        "description": "Username, user ID or profile link",
+        "type": 3,
+        "required": true,
+        "max_length": 300
+      }
     ]
   },
   {
     "name": "universe",
     "description": "Fetch Roblox game info from a universe ID",
     "type": 1,
-    "integration_types": [0, 1],
-    "contexts": [0, 1, 2],
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
     "options": [
-      { "name": "id", "description": "Universe ID", "type": 3, "required": true, "max_length": 30 }
+      {
+        "name": "id",
+        "description": "Universe ID",
+        "type": 3,
+        "required": true,
+        "max_length": 30
+      }
     ]
   },
   {
     "name": "userinfo",
     "description": "Fetch Discord account info for a user",
     "type": 1,
-    "integration_types": [0, 1],
-    "contexts": [0, 1, 2],
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
     "options": [
-      { "name": "user", "description": "The Discord user", "type": 6, "required": true }
+      {
+        "name": "user",
+        "description": "The Discord user",
+        "type": 6,
+        "required": true
+      }
     ]
   },
   {
     "name": "xrp",
     "description": "Current XRP price in USD",
     "type": 1,
-    "integration_types": [0, 1],
-    "contexts": [0, 1, 2]
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ]
   },
   {
     "name": "textnato",
     "description": "Convert text to the NATO phonetic alphabet",
     "type": 1,
-    "integration_types": [0, 1],
-    "contexts": [0, 1, 2],
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
     "options": [
-      { "name": "text", "description": "Text to convert", "type": 3, "required": true, "max_length": 200 }
+      {
+        "name": "text",
+        "description": "Text to convert",
+        "type": 3,
+        "required": true,
+        "max_length": 200
+      }
     ]
   },
   {
     "name": "textreverse",
     "description": "Reverse any text",
     "type": 1,
-    "integration_types": [0, 1],
-    "contexts": [0, 1, 2],
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
     "options": [
-      { "name": "text", "description": "Text to reverse", "type": 3, "required": true, "max_length": 500 }
+      {
+        "name": "text",
+        "description": "Text to reverse",
+        "type": 3,
+        "required": true,
+        "max_length": 500
+      }
     ]
   },
   {
     "name": "textzalgo",
     "description": "Convert text to creepy Zalgo text",
     "type": 1,
-    "integration_types": [0, 1],
-    "contexts": [0, 1, 2],
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
     "options": [
-      { "name": "text", "description": "Text to zalgo-fy", "type": 3, "required": true, "max_length": 100 },
-      { "name": "intensity", "description": "1 (subtle) to 8 (chaos) - default 4", "type": 4, "required": false, "min_value": 1, "max_value": 8 }
+      {
+        "name": "text",
+        "description": "Text to zalgo-fy",
+        "type": 3,
+        "required": true,
+        "max_length": 100
+      },
+      {
+        "name": "intensity",
+        "description": "1 (subtle) to 8 (chaos) - default 4",
+        "type": 4,
+        "required": false,
+        "min_value": 1,
+        "max_value": 8
+      }
     ]
   },
   {

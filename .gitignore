@@ -1,0 +1,26 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+
+# production build output
+/build
+
+# env files (keep .env.example)
+.env
+.env.*
+!.env.example
+
+# generated prisma client (recreated by `npm install` → prisma generate)
+/lib/generated
+
+# vendored browser assets, copied from node_modules by scripts/copy-ffmpeg.mjs on install
+/public/vendor
+
+# misc
+*.tsbuildinfo
+npm-debug.log*
+.DS_Store

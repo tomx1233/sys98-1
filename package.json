@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "tsx --tsconfig tsconfig.json tests/bot-commands.test.ts && tsx --tsconfig tsconfig.json tests/audio-analysis.test.ts && tsx --tsconfig tsconfig.json tests/cr.test.ts",
     "postinstall": "prisma generate && node scripts/copy-ffmpeg.mjs",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
@@ -15,6 +16,7 @@
     "discord:emojis": "node scripts/upload-discord-emojis.mjs"
   },
   "dependencies": {
+    "@breezystack/lamejs": "^1.2.7",
     "@ffmpeg/core": "^0.12.10",
     "@ffmpeg/ffmpeg": "^0.12.15",
     "@prisma/adapter-pg": "^7.10.0",
@@ -34,6 +36,7 @@
     "qrcode": "^1.5.4",
     "react": "19.2.8",
     "react-dom": "19.2.8",
+    "soundtouchjs": "^0.3.0",
     "zod": "^4.6.5"
   },
   "devDependencies": {
@@ -49,6 +52,7 @@
     "prisma": "^7.10.0",
     "sharp": "^0.33.5",
     "tailwindcss": "^4",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }

@@ -64,6 +64,7 @@ export default async function StatusPage() {
   const bannerKey: Key = overall === 0 ? "status.allOk" : overall === 1 ? "status.someTrouble" : "status.someDown";
 
   // 30 day strip (UTC days): green unless an incident was open that day
+  // eslint-disable-next-line react-hooks/purity -- force-dynamic server component: re-rendered per request, so Date.now() is intentional
   const now = Date.now();
   const todayStart = Math.floor(now / DAY) * DAY;
   const days = Array.from({ length: 30 }, (_, i) => {

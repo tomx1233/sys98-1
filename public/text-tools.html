@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>system98 — Text tools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;700&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="system98-logo.svg">
+<link rel="apple-touch-icon" href="system98-logo-512.png">
+<link rel="stylesheet" href="system98.css">
+</head>
+<body>
+
+<div class="panelbar">
+  <div class="panelbar-inner wrap">
+    <a class="brand" href="/">
+      <span class="brand-mark">
+        <svg viewBox="12 15 40 34" fill="none" aria-hidden="true">
+          <rect x="12" y="15" width="40" height="34" rx="6" fill="#15272B"/>
+          <path d="M12 25h40" stroke="#48B9C7" stroke-opacity=".45" stroke-width="2"/>
+          <circle cx="18.5" cy="20" r="2" fill="#FFA71D"/>
+          <path d="M21 32l6 5.5-6 5.5" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      system98
+    </a>
+
+    <a class="panel-link" href="/#tools" data-i18n="nav_tools">Tools</a>
+    <a class="panel-link" href="/#about" data-i18n="nav_about">About</a>
+    <a class="panel-link" href="/support" data-i18n="nav_support">Support</a>
+
+    <span class="panel-spacer"></span>
+
+    <div class="tray">
+      <div class="lang-wrap" id="langWrap">
+        <button type="button" class="tray-btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="choose language / Sprache wählen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"/></svg>
+          <span id="langBtnLabel">EN</span>
+        </button>
+        <ul class="lang-list" id="langList" role="listbox" aria-label="choose language / Sprache wählen">
+          <li class="lang-option active" data-lang="en" role="option" aria-selected="true"><span>English</span><span class="lang-code">EN</span></li>
+          <li class="lang-option" data-lang="de" role="option" aria-selected="false"><span>Deutsch</span><span class="lang-code">DE</span></li>
+          <li class="lang-option" data-lang="fr" role="option" aria-selected="false"><span>Français</span><span class="lang-code">FR</span></li>
+          <li class="lang-option" data-lang="es" role="option" aria-selected="false"><span>Español</span><span class="lang-code">ES</span></li>
+          <li class="lang-option" data-lang="it" role="option" aria-selected="false"><span>Italiano</span><span class="lang-code">IT</span></li>
+          <li class="lang-option" data-lang="pt" role="option" aria-selected="false"><span>Português</span><span class="lang-code">PT</span></li>
+          <li class="lang-option" data-lang="nl" role="option" aria-selected="false"><span>Nederlands</span><span class="lang-code">NL</span></li>
+          <li class="lang-option" data-lang="pl" role="option" aria-selected="false"><span>Polski</span><span class="lang-code">PL</span></li>
+          <li class="lang-option" data-lang="tr" role="option" aria-selected="false"><span>Türkçe</span><span class="lang-code">TR</span></li>
+          <li class="lang-option" data-lang="ru" role="option" aria-selected="false"><span>Русский</span><span class="lang-code">RU</span></li>
+        </ul>
+      </div>
+      <button id="themeToggle" class="tray-btn" type="button" aria-label="Toggle theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2.5 12h2M19.5 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap stack" id="top">
+<section class="win boot" id="text">
+  <div class="titlebar"><span class="dots"><i></i><i></i><i></i></span><span class="title">text-tools.sh</span><button class="collapse" type="button" aria-expanded="true" title="collapse"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button></div>
+  <div class="win-body-wrap"><div class="win-body-inner">
+  <div class="page-hero">
+    <span class="eyebrow">tool</span>
+    <h1>Text Tools</h1>
+    <p class="lead" style="margin-top:12px;color:var(--muted);font-size:15.5px;max-width:58ch;">NATO phonetic alphabet, reversed text and Zalgo text. Runs entirely in your browser — same transforms as the bot's <span class="mono">/textnato</span>, <span class="mono">/textreverse</span> and <span class="mono">/textzalgo</span> commands.</p>
+  </div>
+  <div class="tool-body">
+    <label class="field-label" for="ttInput">Your text</label>
+    <textarea id="ttInput" class="tool-textarea" rows="3" maxlength="500" placeholder="hello world" style="width:100%;padding:10px 12px;border-radius:7px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-family:var(--sans);font-size:14.5px;resize:vertical;"></textarea>
+    <div class="format-row" id="ttRow" style="max-width:520px;">
+      <button type="button" class="format-btn active" data-mode="nato">NATO</button>
+      <button type="button" class="format-btn" data-mode="reverse">Reverse</button>
+      <button type="button" class="format-btn" data-mode="zalgo">Zalgo</button>
+    </div>
+    <div id="zalgoOpts" hidden style="margin-top:12px;">
+      <label class="field-label" for="ttIntensity">Zalgo intensity: <span id="ttIntensityVal" class="mono">4</span></label>
+      <input id="ttIntensity" type="range" min="1" max="8" value="4" style="width:220px;">
+    </div>
+    <div class="tool-actions">
+      <button class="btn btn-line btn-sm" type="button" id="ttCopy">Copy result</button>
+    </div>
+    <label class="field-label" for="ttOut" style="margin-top:18px;">Result</label>
+    <textarea id="ttOut" class="tool-textarea" rows="4" readonly style="width:100%;padding:10px 12px;border-radius:7px;border:1px solid var(--line);background:var(--panel-2);color:var(--ink);font-family:var(--mono);font-size:14px;resize:vertical;"></textarea>
+  </div>
+  <script>
+function $(id) { return document.getElementById(id); }
+function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+function fmtDate(iso) { var d = new Date(iso); return isNaN(d) ? iso : d.toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' }); }
+function fmtNum(n) { return Number(n).toLocaleString(); }
+function fact(dl, label, value, opts) {
+  if (value == null || value === '') return;
+  var box = el('div', 'fact'); box.appendChild(el('dt', null, label));
+  var dd = el('dd'); if (opts && opts.mono) dd.className = 'mono';
+  dd.textContent = value;
+  if (opts && opts.tone) dd.className = (dd.className + ' tone-' + opts.tone).trim();
+  if (opts && opts.href) { dd.textContent = ''; var a = el('a', null, value); a.href = opts.href; a.target = '_blank'; a.rel = 'noopener noreferrer'; dd.appendChild(a); }
+  box.appendChild(dd); dl.appendChild(box);
+}
+function setStatus(elm, msg, err) { elm.textContent = msg || ''; elm.classList.toggle('error', Boolean(err)); }
+
+var NATO = { A:'Alfa',B:'Bravo',C:'Charlie',D:'Delta',E:'Echo',F:'Foxtrot',G:'Golf',H:'Hotel',I:'India',J:'Juliett',K:'Kilo',L:'Lima',M:'Mike',N:'November',O:'Oscar',P:'Papa',Q:'Quebec',R:'Romeo',S:'Sierra',T:'Tango',U:'Uniform',V:'Victor',W:'Whiskey',X:'Xray',Y:'Yankee',Z:'Zulu' };
+var ZU = ['\u030d','\u030e','\u0304','\u0305','\u033f','\u0311','\u0306','\u0310','\u0352','\u0357','\u0351','\u0307','\u0308','\u030a','\u0342','\u0343','\u0344','\u034a','\u034b','\u034c','\u0303','\u0302','\u030c','\u0350','\u0300','\u0301','\u030b','\u030f','\u0312','\u0313','\u0314','\u033d','\u0309','\u0363','\u0364','\u0365','\u0366','\u0367','\u0368','\u0369','\u036a','\u036b','\u036c','\u036d','\u036e','\u036f','\u033e','\u035b','\u0346','\u031a'];
+var ZM = ['\u0315','\u031b','\u0340','\u0341','\u0358','\u0321','\u0322','\u0327','\u0328','\u0334','\u0335','\u0336','\u034f','\u035c','\u035d','\u035e','\u035f','\u0360','\u0362','\u0338','\u0337','\u0361'];
+var ZD = ['\u0316','\u0317','\u0318','\u0319','\u031c','\u031d','\u031e','\u031f','\u0320','\u0324','\u0325','\u0326','\u0329','\u032a','\u032b','\u032c','\u032d','\u032e','\u032f','\u0330','\u0331','\u0332','\u0333','\u0339','\u033a','\u033b','\u033c','\u0345','\u0347','\u0348','\u0349','\u034d','\u034e','\u0323'];
+function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+
+function toNato(t) {
+  return t.toUpperCase().split('').map(function (c) { return NATO[c] ? NATO[c] : /[0-9]/.test(c) ? c : c === ' ' ? '/' : null; }).filter(function (c) { return c !== null; }).join(' ');
+}
+function toReverse(t) { return Array.from(t).reverse().join(''); }
+function toZalgo(t, n) {
+  n = Math.max(1, Math.min(8, Math.round(n)));
+  return Array.from(t).map(function (c) {
+    if (c === ' ' || c === '\n') return c;
+    var out = c, i;
+    for (i = 0; i < n; i++) out += pick(ZU);
+    for (i = 0; i < Math.min(3, n); i++) out += pick(ZM);
+    for (i = 0; i < n; i++) out += pick(ZD);
+    return out;
+  }).join('');
+}
+
+var mode = 'nato';
+var inp = $('ttInput'), out = $('ttOut'), intensity = $('ttIntensity');
+function render() {
+  var t = inp.value;
+  if (!t) { out.value = ''; return; }
+  out.value = mode === 'nato' ? toNato(t) : mode === 'reverse' ? toReverse(t) : toZalgo(t, Number(intensity.value));
+}
+Array.prototype.forEach.call($('ttRow').querySelectorAll('.format-btn'), function (b) {
+  b.addEventListener('click', function () {
+    Array.prototype.forEach.call($('ttRow').querySelectorAll('.format-btn'), function (x) { x.classList.remove('active'); });
+    b.classList.add('active'); mode = b.getAttribute('data-mode');
+    $('zalgoOpts').hidden = mode !== 'zalgo';
+    render();
+  });
+});
+inp.addEventListener('input', render);
+intensity.addEventListener('input', function () { $('ttIntensityVal').textContent = intensity.value; render(); });
+$('ttCopy').addEventListener('click', function () {
+  var b = this; if (!out.value) return;
+  (navigator.clipboard ? navigator.clipboard.writeText(out.value) : Promise.reject()).then(function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy result'; }, 1400); }, function () { window.prompt('Copy:', out.value); });
+});
+</script>
+  </div></div>
+</section>
+</main>
+
+<div class="statusbar">
+  <div class="statusbar-inner wrap">
+    <span class="seg" data-i18n="footer_shipped">last shipped a few days ago</span>
+    <span class="seg" id="clock" aria-hidden="true"></span>
+    <span class="seg" id="onlineNow" hidden></span>
+    <span class="sep"></span>
+    <a class="seg" href="/login" data-i18n="footer_staff">Staff login</a>
+    <a class="seg" href="/status">Status</a>
+    <a class="seg" href="/terms" data-i18n="footer_terms">Terms</a>
+    <a class="seg" href="/privacy" data-i18n="footer_privacy">Privacy</a>
+    <span class="seg" data-i18n="footer_fine">© 2026 system98</span>
+  </div>
+</div>
+
+<script src="system98.js"></script>
+<script src="/presence.js" defer></script>
+</body>
+</html>
