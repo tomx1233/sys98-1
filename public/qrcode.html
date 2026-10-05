@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>system98 — Link to QR code</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;700&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="system98-logo.svg">
+<link rel="apple-touch-icon" href="system98-logo-512.png">
+<link rel="stylesheet" href="system98.css">
+</head>
+<body>
+
+<div class="panelbar">
+  <div class="panelbar-inner wrap">
+    <a class="brand" href="/">
+      <span class="brand-mark">
+        <svg viewBox="12 15 40 34" fill="none" aria-hidden="true">
+          <rect x="12" y="15" width="40" height="34" rx="6" fill="#15272B"/>
+          <path d="M12 25h40" stroke="#48B9C7" stroke-opacity=".45" stroke-width="2"/>
+          <circle cx="18.5" cy="20" r="2" fill="#FFA71D"/>
+          <path d="M21 32l6 5.5-6 5.5" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      system98
+    </a>
+
+    <a class="panel-link" href="/#tools" data-i18n="nav_tools">Tools</a>
+    <a class="panel-link" href="/#about" data-i18n="nav_about">About</a>
+    <a class="panel-link" href="/support" data-i18n="nav_support">Support</a>
+
+    <span class="panel-spacer"></span>
+
+    <div class="tray">
+      <div class="lang-wrap" id="langWrap">
+        <button type="button" class="tray-btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="choose language / Sprache wählen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"/></svg>
+          <span id="langBtnLabel">EN</span>
+        </button>
+        <ul class="lang-list" id="langList" role="listbox" aria-label="choose language / Sprache wählen">
+          <li class="lang-option active" data-lang="en" role="option" aria-selected="true"><span>English</span><span class="lang-code">EN</span></li>
+          <li class="lang-option" data-lang="de" role="option" aria-selected="false"><span>Deutsch</span><span class="lang-code">DE</span></li>
+          <li class="lang-option" data-lang="fr" role="option" aria-selected="false"><span>Français</span><span class="lang-code">FR</span></li>
+          <li class="lang-option" data-lang="es" role="option" aria-selected="false"><span>Español</span><span class="lang-code">ES</span></li>
+          <li class="lang-option" data-lang="it" role="option" aria-selected="false"><span>Italiano</span><span class="lang-code">IT</span></li>
+          <li class="lang-option" data-lang="pt" role="option" aria-selected="false"><span>Português</span><span class="lang-code">PT</span></li>
+          <li class="lang-option" data-lang="nl" role="option" aria-selected="false"><span>Nederlands</span><span class="lang-code">NL</span></li>
+          <li class="lang-option" data-lang="pl" role="option" aria-selected="false"><span>Polski</span><span class="lang-code">PL</span></li>
+          <li class="lang-option" data-lang="tr" role="option" aria-selected="false"><span>Türkçe</span><span class="lang-code">TR</span></li>
+          <li class="lang-option" data-lang="ru" role="option" aria-selected="false"><span>Русский</span><span class="lang-code">RU</span></li>
+        </ul>
+      </div>
+      <button id="themeToggle" class="tray-btn" type="button" aria-label="Toggle theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2.5 12h2M19.5 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap stack" id="top">
+<section class="win boot" id="qrcode">
+  <div class="titlebar"><span class="dots"><i></i><i></i><i></i></span><span class="title">qrcode.sh</span><button class="collapse" type="button" aria-expanded="true" title="collapse"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button></div>
+  <div class="win-body-wrap"><div class="win-body-inner">
+  <div class="page-hero">
+    <span class="eyebrow">tool</span>
+    <h1>Link &rarr; QR code</h1>
+    <p class="lead" style="margin-top:12px;color:var(--muted);font-size:15.5px;max-width:56ch;">Paste any link or text, get a QR code back. Nothing is stored — the code is generated on request and thrown away right after.</p>
+  </div>
+
+  <div class="tool-body">
+    <div class="tool-grid">
+      <div>
+        <label class="field-label" for="qrText">Link or text</label>
+        <textarea id="qrText" class="tool-textarea" rows="3" placeholder="https://example.com"></textarea>
+
+        <div class="format-row">
+          <button class="format-btn active" type="button" data-format="png">PNG</button>
+          <button class="format-btn" type="button" data-format="svg">SVG</button>
+        </div>
+
+        <div class="tool-actions">
+          <button class="btn btn-fill" type="button" id="qrGenerate">Generate</button>
+          <a class="btn btn-line" id="qrDownload" href="#" download="qrcode.png" style="display:none;">Download</a>
+        </div>
+        <p class="tool-status" id="qrStatus"></p>
+      </div>
+
+      <div class="preview-pane" id="qrPreview">
+        <span class="preview-placeholder">your QR code<br>shows up here</span>
+      </div>
+    </div>
+  </div>
+  </div></div>
+</section>
+</main>
+
+<div class="statusbar">
+  <div class="statusbar-inner wrap">
+    <span class="seg" data-i18n="footer_shipped">last shipped a few days ago</span>
+    <span class="seg" id="clock" aria-hidden="true"></span>
+    <span class="seg" id="onlineNow" hidden></span>
+    <span class="sep"></span>
+    <a class="seg" href="/login" data-i18n="footer_staff">Staff login</a>
+    <a class="seg" href="/status">Status</a>
+    <a class="seg" href="/terms" data-i18n="footer_terms">Terms</a>
+    <a class="seg" href="/privacy" data-i18n="footer_privacy">Privacy</a>
+    <span class="seg" data-i18n="footer_fine">© 2026 system98</span>
+  </div>
+</div>
+
+<script src="system98.js"></script>
+<script>
+(function(){
+  var textEl = document.getElementById('qrText');
+  var statusEl = document.getElementById('qrStatus');
+  var previewEl = document.getElementById('qrPreview');
+  var downloadEl = document.getElementById('qrDownload');
+  var generateBtn = document.getElementById('qrGenerate');
+  var formatBtns = document.querySelectorAll('.format-btn');
+  var format = 'png';
+  var currentUrl = null;
+
+  formatBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      formatBtns.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      format = btn.getAttribute('data-format');
+    });
+  });
+
+  function setStatus(msg, isError){
+    statusEl.textContent = msg;
+    statusEl.classList.toggle('error', Boolean(isError));
+  }
+
+  generateBtn.addEventListener('click', async function(){
+    var text = textEl.value.trim();
+    if (!text) { setStatus('Enter a link or some text first.', true); return; }
+
+    var original = generateBtn.textContent;
+    generateBtn.disabled = true; generateBtn.textContent = 'Generating...';
+    setStatus('');
+
+    try {
+      // Requires the /api/tools/qrcode route from the system98 backend
+      // package to be deployed alongside this page (see README).
+      var res = await fetch('/api/tools/qrcode', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: text, format: format })
+      });
+      if (!res.ok) {
+        var data = await res.json().catch(function(){ return {}; });
+        throw new Error(data.error || 'Could not generate QR code');
+      }
+      var blob = await res.blob();
+      if (currentUrl) URL.revokeObjectURL(currentUrl);
+      currentUrl = URL.createObjectURL(blob);
+
+      previewEl.classList.add('has-image');
+      previewEl.innerHTML = '<img src="' + currentUrl + '" alt="Generated QR code">';
+      downloadEl.href = currentUrl;
+      downloadEl.download = 'qrcode.' + format;
+      downloadEl.style.display = '';
+    } catch (err) {
+      setStatus(err.message || 'Something went wrong, try again.', true);
+    } finally {
+      generateBtn.disabled = false; generateBtn.textContent = original;
+    }
+  });
+})();
+</script>
+
+<script src="system98.js"></script>
+<script src="/presence.js" defer></script>
+</body>
+</html>

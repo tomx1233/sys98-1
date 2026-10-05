@@ -1,0 +1,193 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ---------- staff accounts ----------
+// There is no public sign-up. Accounts are only created by redeeming a StaffKey
+// (or the one-time SETUP_KEY from .env for the very first owner).
+
+model Staff {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  username     String    @unique
+  passwordHash String
+  role         String    @default("staff") // "owner" | "staff"
+  disabled     Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+  lastLoginAt  DateTime?
+
+  // two-factor (TOTP + recovery codes)
+  twoFactorEnabled        Boolean   @default(false)
+  twoFactorSecret         String? // AES-256-GCM encrypted
+  twoFactorRecoveryCodes  String[]  @default([]) // bcrypt hashes, each code works once
+  twoFactorFailedAttempts Int       @default(0)
+  twoFactorLockedUntil    DateTime?
+
+  keyId        String?
+  joinedWith   StaffKey? @relation("KeyRedeemers", fields: [keyId], references: [id], onDelete: SetNull)
+
+  profile      StaffProfile?
+  keysCreated  StaffKey[]       @relation("KeyCreator")
+  messages     SupportMessage[]
+  auditLogs    AuditLog[]
+  incidents        Incident[]
+  incidentUpdates  IncidentUpdate[]
+
+  @@index([role])
+}
+
+model StaffKey {
+  id          String    @id @default(cuid())
+  keyHash     String    @unique
+  keyPrefix   String
+  label       String    @default("")
+  maxUses     Int       @default(1)
+  usedCount   Int       @default(0)
+  disabled    Boolean   @default(false)
+  expiresAt   DateTime?
+  createdAt   DateTime  @default(now())
+
+  createdById String?
+  createdBy   Staff?    @relation("KeyCreator", fields: [createdById], references: [id], onDelete: SetNull)
+  redeemedBy  Staff[]   @relation("KeyRedeemers")
+
+  @@index([createdAt])
+}
+
+// ---------- staff profile (public page at /staff/<username>) ----------
+
+model StaffProfile {
+  id          String   @id @default(cuid())
+  staffId     String   @unique
+  staff       Staff    @relation(fields: [staffId], references: [id], onDelete: Cascade)
+
+  displayName String   @default("")
+  title       String   @default("")
+  bio         String   @default("")
+  languages   String   @default("")
+  avatarUrl   String?
+  accent      String   @default("teal")
+  isPublic    Boolean  @default(true)
+  viewCount   Int      @default(0)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  links       StaffLink[]
+}
+
+model StaffLink {
+  id        String       @id @default(cuid())
+  profileId String
+  profile   StaffProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  label     String
+  url       String
+  order     Int          @default(0)
+
+  @@index([profileId, order])
+}
+
+// ---------- support ----------
+// Visitors don't have accounts. A ticket is reachable through a long unguessable
+// link (accessToken), or through code + email on /support.
+
+model SupportTicket {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  accessToken String   @unique
+
+  name        String
+  email       String
+  lang        String   @default("en")
+
+  subject     String
+  category    String   @default("other")
+  status      String   @default("open") // open | pending | resolved | closed
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  messages    SupportMessage[]
+
+  @@index([status, updatedAt])
+  @@index([email])
+}
+
+model SupportMessage {
+  id         String        @id @default(cuid())
+  ticketId   String
+  ticket     SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+
+  fromStaff  Boolean       @default(false)
+  staffId    String?
+  staff      Staff?        @relation(fields: [staffId], references: [id], onDelete: SetNull)
+
+  body       String
+  createdAt  DateTime      @default(now())
+
+  @@index([ticketId, createdAt])
+}
+
+// ---------- audit ----------
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  staffId    String?
+  staff      Staff?   @relation(fields: [staffId], references: [id], onDelete: SetNull)
+  action     String
+  targetType String
+  targetId   String?
+  metadata   Json?
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+// ---------- "online now" counter ----------
+// One row per open page, identified by a random id that only lives in that browser tab.
+// No IP, no cookie, rows are deleted after a few minutes.
+
+model Presence {
+  id       String   @id
+  lastSeen DateTime @default(now())
+
+  @@index([lastSeen])
+}
+
+// ---------- public status page (/status) ----------
+// Staff post incidents from the dashboard; the page also runs live health checks on its own.
+
+model Incident {
+  id          String    @id @default(cuid())
+  title       String
+  severity    String    @default("minor")        // info | minor | major
+  status      String    @default("investigating") // investigating | identified | monitoring | resolved
+  createdAt   DateTime  @default(now())
+  resolvedAt  DateTime?
+
+  createdById String?
+  createdBy   Staff?    @relation(fields: [createdById], references: [id], onDelete: SetNull)
+  updates     IncidentUpdate[]
+
+  @@index([createdAt])
+}
+
+model IncidentUpdate {
+  id         String   @id @default(cuid())
+  incidentId String
+  incident   Incident @relation(fields: [incidentId], references: [id], onDelete: Cascade)
+  status     String
+  body       String
+  createdAt  DateTime @default(now())
+
+  staffId    String?
+  staff      Staff?   @relation(fields: [staffId], references: [id], onDelete: SetNull)
+
+  @@index([incidentId, createdAt])
+}

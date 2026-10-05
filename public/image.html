@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>system98 — Image converter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;700&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="system98-logo.svg">
+<link rel="apple-touch-icon" href="system98-logo-512.png">
+<link rel="stylesheet" href="system98.css">
+</head>
+<body>
+
+<div class="panelbar">
+  <div class="panelbar-inner wrap">
+    <a class="brand" href="/">
+      <span class="brand-mark">
+        <svg viewBox="12 15 40 34" fill="none" aria-hidden="true">
+          <rect x="12" y="15" width="40" height="34" rx="6" fill="#15272B"/>
+          <path d="M12 25h40" stroke="#48B9C7" stroke-opacity=".45" stroke-width="2"/>
+          <circle cx="18.5" cy="20" r="2" fill="#FFA71D"/>
+          <path d="M21 32l6 5.5-6 5.5" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      system98
+    </a>
+
+    <a class="panel-link" href="/#tools" data-i18n="nav_tools">Tools</a>
+    <a class="panel-link" href="/#about" data-i18n="nav_about">About</a>
+    <a class="panel-link" href="/support" data-i18n="nav_support">Support</a>
+
+    <span class="panel-spacer"></span>
+
+    <div class="tray">
+      <div class="lang-wrap" id="langWrap">
+        <button type="button" class="tray-btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="choose language / Sprache wählen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"/></svg>
+          <span id="langBtnLabel">EN</span>
+        </button>
+        <ul class="lang-list" id="langList" role="listbox" aria-label="choose language / Sprache wählen">
+          <li class="lang-option active" data-lang="en" role="option" aria-selected="true"><span>English</span><span class="lang-code">EN</span></li>
+          <li class="lang-option" data-lang="de" role="option" aria-selected="false"><span>Deutsch</span><span class="lang-code">DE</span></li>
+          <li class="lang-option" data-lang="fr" role="option" aria-selected="false"><span>Français</span><span class="lang-code">FR</span></li>
+          <li class="lang-option" data-lang="es" role="option" aria-selected="false"><span>Español</span><span class="lang-code">ES</span></li>
+          <li class="lang-option" data-lang="it" role="option" aria-selected="false"><span>Italiano</span><span class="lang-code">IT</span></li>
+          <li class="lang-option" data-lang="pt" role="option" aria-selected="false"><span>Português</span><span class="lang-code">PT</span></li>
+          <li class="lang-option" data-lang="nl" role="option" aria-selected="false"><span>Nederlands</span><span class="lang-code">NL</span></li>
+          <li class="lang-option" data-lang="pl" role="option" aria-selected="false"><span>Polski</span><span class="lang-code">PL</span></li>
+          <li class="lang-option" data-lang="tr" role="option" aria-selected="false"><span>Türkçe</span><span class="lang-code">TR</span></li>
+          <li class="lang-option" data-lang="ru" role="option" aria-selected="false"><span>Русский</span><span class="lang-code">RU</span></li>
+        </ul>
+      </div>
+      <button id="themeToggle" class="tray-btn" type="button" aria-label="Toggle theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2.5 12h2M19.5 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap stack" id="top">
+<section class="win boot" id="image">
+  <div class="titlebar"><span class="dots"><i></i><i></i><i></i></span><span class="title">image.sh</span><button class="collapse" type="button" aria-expanded="true" title="collapse"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button></div>
+  <div class="win-body-wrap"><div class="win-body-inner">
+  <div class="page-hero">
+    <span class="eyebrow">tool</span>
+    <h1>Image Converter</h1>
+    <p class="lead" style="margin-top:12px;color:var(--muted);font-size:15.5px;max-width:58ch;">PNG to GIF, WebP to GIF, GIF to WebP and every other way round between PNG, JPG, WebP and GIF. Animated GIFs and WebPs stay animated. Everything happens <strong>in your browser</strong>, your images are never uploaded.</p>
+  </div>
+
+  <div class="tool-body">
+    <div class="field">
+      <span class="field-label">Convert to</span>
+      <div class="chip-row" id="formats" role="radiogroup" aria-label="output format"></div>
+      <p class="field-hint" id="formatHint"></p>
+    </div>
+
+    <div class="field" id="qualityField" style="margin-top:18px;">
+      <span class="field-label" id="qualityLabel">Quality</span>
+      <div class="chip-row" id="qualities" role="radiogroup" aria-label="quality"></div>
+    </div>
+
+    <div class="field" style="margin-top:18px;">
+      <span class="field-label">Max width</span>
+      <div class="chip-row" id="sizes" role="radiogroup" aria-label="max width"></div>
+    </div>
+
+    <label class="dropzone" id="dropzone" for="fileInput" style="margin-top:22px;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M12 4l-4 4M12 4l4 4"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+      <div>Drop images here, or click to choose</div>
+      <input type="file" id="fileInput" multiple accept="image/png,image/jpeg,image/webp,image/gif,image/bmp,image/avif,.png,.jpg,.jpeg,.webp,.gif,.bmp,.avif">
+      <div class="file-name">PNG, JPG, WebP, GIF, BMP, AVIF · up to 50 MB each</div>
+    </label>
+
+    <div class="queue" id="queue" aria-live="polite"></div>
+
+    <div class="tool-actions">
+      <button class="btn btn-fill" type="button" id="convertBtn" disabled>Convert</button>
+      <button class="btn btn-line" type="button" id="clearBtn" style="display:none;">Clear list</button>
+    </div>
+    <p class="tool-status" id="status" role="status"></p>
+
+    <p class="hint-line">GIF only has 256 colors per frame, so photos get a bit grainy as GIF; WebP is the better animated format. JPG has no transparency, transparent areas turn white. Animated images turned into PNG or JPG keep only their first frame. GIF encoding by <a href="https://github.com/mattdesl/gifenc" target="_blank" rel="noopener">gifenc</a> (MIT).</p>
+  </div>
+  </div></div>
+</section>
+</main>
+
+<div class="statusbar">
+  <div class="statusbar-inner wrap">
+    <span class="seg" data-i18n="footer_shipped">last shipped a few days ago</span>
+    <span class="seg" id="clock" aria-hidden="true"></span>
+    <span class="seg" id="onlineNow" hidden></span>
+    <span class="sep"></span>
+    <a class="seg" href="/login" data-i18n="footer_staff">Staff login</a>
+    <a class="seg" href="/status">Status</a>
+    <a class="seg" href="/terms" data-i18n="footer_terms">Terms</a>
+    <a class="seg" href="/privacy" data-i18n="footer_privacy">Privacy</a>
+    <span class="seg" data-i18n="footer_fine">© 2026 system98</span>
+  </div>
+</div>
+
+<script src="system98.js"></script>
+<script src="/presence.js" defer></script>
+<script type="module">
+import { GIFEncoder, quantize, applyPalette } from '/vendor/gifenc.esm.js';
+
+var MAX_BYTES = 50 * 1024 * 1024;
+var MAX_FRAME_BYTES = 450 * 1024 * 1024;   // all decoded frames together, as RGBA
+var FORMATS = {
+  png:  { label: 'PNG',  ext: 'png',  mime: 'image/png',  hint: 'lossless, keeps transparency' },
+  jpg:  { label: 'JPG',  ext: 'jpg',  mime: 'image/jpeg', hint: 'small photos, no transparency', lossy: true },
+  webp: { label: 'WebP', ext: 'webp', mime: 'image/webp', hint: 'small files, transparency and animation', lossy: true },
+  gif:  { label: 'GIF',  ext: 'gif',  mime: 'image/gif',  hint: 'works everywhere, animation, 256 colors', gif: true }
+};
+var QUALITIES = { lossy: [['small', 'Small', 0.6], ['balanced', 'Balanced', 0.8], ['high', 'High', 0.92]],
+                  gif:   [['small', 'Small (64 colors)', 64], ['balanced', 'Balanced (128)', 128], ['high', 'High (256)', 256]] };
+var SIZES = [[0, 'Original'], [1600, '1600 px'], [1200, '1200 px'], [800, '800 px'], [480, '480 px']];
+
+var fmt = 'gif', quality = 'high', maxW = 0;
+var items = [], nextId = 1, running = false;
+
+function $(id) { return document.getElementById(id); }
+var qEl = $('queue'), statusEl = $('status'), convertBtn = $('convertBtn'), clearBtn = $('clearBtn');
+function setStatus(m, err) { statusEl.textContent = m || ''; statusEl.classList.toggle('error', Boolean(err)); }
+function fmtSize(n) { return n >= 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB'; }
+function baseName(name) { var i = name.lastIndexOf('.'); return (i > 0 ? name.slice(0, i) : name).slice(0, 120) || 'image'; }
+function tick() { return new Promise(function (r) { setTimeout(r, 0); }); }
+function fail(msg) { var e = new Error(msg); e.friendly = true; return e; }
+
+// ======================================================================
+//  decoding: file -> { width, height, frames: [{ data: ImageData, delay }], loop }
+// ======================================================================
+function sniff(b) {
+  var s4 = String.fromCharCode(b[0], b[1], b[2], b[3]);
+  if (s4 === 'GIF8') return 'gif';
+  if (b[0] === 0x89 && s4.slice(1) === 'PNG') return 'png';
+  if (b[0] === 0xFF && b[1] === 0xD8) return 'jpg';
+  if (s4 === 'RIFF' && String.fromCharCode(b[8], b[9], b[10], b[11]) === 'WEBP') return 'webp';
+  return 'other';
+}
+
+// ---- GIF decoder (frames come back fully composited) ----
+function lzwDecode(minCode, data, npix) {
+  var clear = 1 << minCode, eoi = clear + 1, next = eoi + 1, size = minCode + 1, mask = (1 << size) - 1;
+  var prefix = new Uint16Array(4096), suffix = new Uint8Array(4096), stack = new Uint8Array(4097);
+  for (var i = 0; i < clear; i++) suffix[i] = i;
+  var out = new Uint8Array(npix), op = 0, bits = 0, nbits = 0, pos = 0, prev = -1, first = 0;
+  while (op < npix) {
+    while (nbits < size) { if (pos >= data.length) return out; bits |= data[pos++] << nbits; nbits += 8; }
+    var code = bits & mask; bits >>= size; nbits -= size;
+    if (code === clear) { size = minCode + 1; mask = (1 << size) - 1; next = eoi + 1; prev = -1; continue; }
+    if (code === eoi) break;
+    if (prev === -1) { out[op++] = suffix[code]; prev = code; first = code; continue; }
+    var inCode = code, sp = 0;
+    if (code >= next) { stack[sp++] = first; code = prev; }
+    while (code >= clear) { stack[sp++] = suffix[code]; code = prefix[code]; }
+    first = suffix[code]; stack[sp++] = first;
+    if (next < 4096) { prefix[next] = prev; suffix[next] = first; next++; if ((next & mask) === 0 && next < 4096) { size++; mask = (1 << size) - 1; } }
+    prev = inCode;
+    while (sp > 0 && op < npix) out[op++] = stack[--sp];
+  }
+  return out;
+}
+
+function decodeGif(bytes) {
+  var pos = 6;
+  var u8 = function () { return bytes[pos++]; };
+  var u16 = function () { var v = bytes[pos] | (bytes[pos + 1] << 8); pos += 2; return v; };
+  var palette = function (n) { var p = new Uint8Array(n * 3); for (var i = 0; i < n * 3; i++) p[i] = u8(); return p; };
+  var subBlocks = function () {
+    var parts = [], total = 0, len;
+    while ((len = u8()) > 0) { parts.push(bytes.subarray(pos, pos + len)); pos += len; total += len; }
+    var out = new Uint8Array(total), o = 0; parts.forEach(function (p) { out.set(p, o); o += p.length; }); return out;
+  };
+  var W = u16(), H = u16(), flags = u8(); u8(); u8();
+  if (!W || !H) throw fail("Couldn't read this GIF.");
+  var gct = (flags & 0x80) ? palette(2 << (flags & 7)) : null;
+  var raw = [], gce = null, loop = 0;
+  while (pos < bytes.length) {
+    var b = u8();
+    if (b === 0x3B) break;
+    if (b === 0x21) {
+      var label = u8(), data = subBlocks();
+      if (label === 0xF9 && data.length >= 4) gce = { disposal: (data[0] >> 2) & 7, transparent: data[0] & 1, delay: (data[1] | (data[2] << 8)) * 10, tIdx: data[3] };
+      else if (label === 0xFF && data.length >= 14 && String.fromCharCode.apply(null, data.subarray(0, 11)) === 'NETSCAPE2.0') loop = data[12] | (data[13] << 8);
+    } else if (b === 0x2C) {
+      var x = u16(), y = u16(), w = u16(), h = u16(), pf = u8();
+      var lct = (pf & 0x80) ? palette(2 << (pf & 7)) : null;
+      var minCode = u8(), lz = subBlocks();
+      raw.push({ x: x, y: y, w: w, h: h, interlaced: (pf & 0x40) !== 0, pal: lct || gct, minCode: minCode, lz: lz, gce: gce });
+      gce = null;
+    } else break;
+    if (raw.length * W * H * 4 > MAX_FRAME_BYTES) throw fail('This GIF is too large to convert in the browser.');
+  }
+  if (!raw.length) throw fail("Couldn't read this GIF.");
+
+  var canvas = new Uint8ClampedArray(W * H * 4), frames = [], prevSnap = null, prevDisp = 0, prevRect = null;
+  raw.forEach(function (f) {
+    // dispose of the previous frame first
+    if (prevRect) {
+      if (prevDisp === 2) { for (var yy = prevRect.y; yy < prevRect.y + prevRect.h && yy < H; yy++) canvas.fill(0, (yy * W + prevRect.x) * 4, (yy * W + Math.min(prevRect.x + prevRect.w, W)) * 4); }
+      else if (prevDisp === 3 && prevSnap) canvas.set(prevSnap);
+    }
+    var disp = f.gce ? f.gce.disposal : 0;
+    prevSnap = disp === 3 ? new Uint8ClampedArray(canvas) : null;
+    var idx = lzwDecode(f.minCode, f.lz, f.w * f.h);
+    var rowOf = function (i) { return i; };
+    if (f.interlaced) {
+      var order = [], r;
+      for (r = 0; r < f.h; r += 8) order.push(r); for (r = 4; r < f.h; r += 8) order.push(r);
+      for (r = 2; r < f.h; r += 4) order.push(r); for (r = 1; r < f.h; r += 2) order.push(r);
+      rowOf = function (i) { return order[i]; };
+    }
+    var t = f.gce && f.gce.transparent ? f.gce.tIdx : -1, pal = f.pal || new Uint8Array(768);
+    for (var row = 0; row < f.h; row++) {
+      var dy = f.y + rowOf(row); if (dy >= H) continue;
+      for (var col = 0; col < f.w; col++) {
+        var dx = f.x + col; if (dx >= W) continue;
+        var ci = idx[row * f.w + col]; if (ci === t) continue;
+        var o = (dy * W + dx) * 4; canvas[o] = pal[ci * 3]; canvas[o + 1] = pal[ci * 3 + 1]; canvas[o + 2] = pal[ci * 3 + 2]; canvas[o + 3] = 255;
+      }
+    }
+    frames.push({ data: new ImageData(new Uint8ClampedArray(canvas), W, H), delay: f.gce && f.gce.delay ? f.gce.delay : 100 });
+    prevDisp = disp; prevRect = f;
+  });
+  return { width: W, height: H, frames: frames, loop: loop };
+}
+
+// ---- WebP: parse chunks (needed for animated files) ----
+function u24(b, p) { return b[p] | (b[p + 1] << 8) | (b[p + 2] << 16); }
+function u32(b, p) { return (b[p] | (b[p + 1] << 8) | (b[p + 2] << 16) | (b[p + 3] << 24)) >>> 0; }
+function fourcc(b, p) { return String.fromCharCode(b[p], b[p + 1], b[p + 2], b[p + 3]); }
+
+function parseWebp(b) {
+  var info = { animated: false, width: 0, height: 0, loop: 0, frames: [] }, pos = 12;
+  while (pos + 8 <= b.length) {
+    var id = fourcc(b, pos), size = u32(b, pos + 4), p = pos + 8;
+    if (id === 'VP8X') { info.animated = (b[p] & 2) !== 0; info.width = 1 + u24(b, p + 4); info.height = 1 + u24(b, p + 7); }
+    else if (id === 'ANIM') info.loop = b[p + 4] | (b[p + 5] << 8);
+    else if (id === 'ANMF') {
+      var fl = b[p + 15];
+      info.frames.push({ x: 2 * u24(b, p), y: 2 * u24(b, p + 3), w: 1 + u24(b, p + 6), h: 1 + u24(b, p + 9), delay: u24(b, p + 12),
+                         blend: (fl & 2) === 0, dispose: (fl & 1) === 1, payload: b.subarray(p + 16, p + size) });
+    }
+    pos = p + size + (size & 1);
+  }
+  return info;
+}
+
+function le(n, bytes) { var a = []; for (var i = 0; i < bytes; i++) a.push((n >>> (8 * i)) & 255); return a; }
+function chunk(id, data) {
+  var out = new Uint8Array(8 + data.length + (data.length & 1));
+  for (var i = 0; i < 4; i++) out[i] = id.charCodeAt(i);
+  out.set(le(data.length, 4), 4); out.set(data, 8); return out;
+}
+function concat(parts) { var t = 0; parts.forEach(function (p) { t += p.length; }); var o = new Uint8Array(t), q = 0; parts.forEach(function (p) { o.set(p, q); q += p.length; }); return o; }
+function riff(inner) { return concat([new Uint8Array([82, 73, 70, 70]), new Uint8Array(le(inner.length + 4, 4)), new Uint8Array([87, 69, 66, 80]), inner]); }
+
+// one animation frame -> a standalone still WebP the browser can decode
+function frameToStill(f) {
+  var hasAlpha = false, o = 0, d = f.payload;
+  while (o + 8 <= d.length) { var id = fourcc(d, o); if (id === 'ALPH' || id === 'VP8L') hasAlpha = true; o += 8 + u32(d, o + 4) + (u32(d, o + 4) & 1); }
+  var vp8x = chunk('VP8X', new Uint8Array([hasAlpha ? 0x10 : 0, 0, 0, 0].concat(le(f.w - 1, 3), le(f.h - 1, 3))));
+  return riff(concat([vp8x, d]));
+}
+
+async function decodeWebpAnimated(bytes, info) {
+  var W = info.width, H = info.height;
+  if (info.frames.length * W * H * 4 > MAX_FRAME_BYTES) throw fail('This WebP is too large to convert in the browser.');
+  var cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+  var ctx = cv.getContext('2d', { willReadFrequently: true }), frames = [], prev = null;
+  for (var i = 0; i < info.frames.length; i++) {
+    var f = info.frames[i];
+    if (prev && prev.dispose) ctx.clearRect(prev.x, prev.y, prev.w, prev.h);
+    var bmp;
+    try { bmp = await createImageBitmap(new Blob([frameToStill(f)], { type: 'image/webp' })); }
+    catch (e) { throw fail("Couldn't read this animated WebP."); }
+    if (!f.blend) ctx.clearRect(f.x, f.y, f.w, f.h);
+    ctx.drawImage(bmp, f.x, f.y); bmp.close();
+    frames.push({ data: ctx.getImageData(0, 0, W, H), delay: f.delay || 100 });
+    prev = f;
+    if (i % 4 === 3) await tick();
+  }
+  return { width: W, height: H, frames: frames, loop: info.loop };
+}
+
+async function decodeImage(file) {
+  var bytes = new Uint8Array(await file.arrayBuffer());
+  var type = sniff(bytes);
+  if (type === 'gif') { var g = decodeGif(bytes); g.animated = g.frames.length > 1; g.type = 'gif'; return g; }
+  if (type === 'webp') {
+    var info = parseWebp(bytes);
+    if (info.animated && info.frames.length > 1) { var w = await decodeWebpAnimated(bytes, info); w.animated = true; w.type = 'webp'; return w; }
+  }
+  var bmp;
+  try { bmp = await createImageBitmap(file); } catch (e) { throw fail("Couldn't read this image. Is it a PNG, JPG, WebP, GIF, BMP or AVIF?"); }
+  var cv = document.createElement('canvas'); cv.width = bmp.width; cv.height = bmp.height;
+  var ctx = cv.getContext('2d', { willReadFrequently: true }); ctx.drawImage(bmp, 0, 0); bmp.close();
+  return { width: cv.width, height: cv.height, frames: [{ data: ctx.getImageData(0, 0, cv.width, cv.height), delay: 100 }], loop: 0, animated: false, type: type };
+}
+
+// ======================================================================
+//  encoding
+// ======================================================================
+function scaledCanvas(frame, W, H, sw, sh, bg) {
+  var cv = document.createElement('canvas'); cv.width = sw; cv.height = sh;
+  var ctx = cv.getContext('2d', { willReadFrequently: true });
+  if (bg) { ctx.fillStyle = bg; ctx.fillRect(0, 0, sw, sh); }
+  if (sw === W && sh === H && !bg) { ctx.putImageData(frame.data, 0, 0); return cv; }
+  var tmp = document.createElement('canvas'); tmp.width = W; tmp.height = H;
+  tmp.getContext('2d').putImageData(frame.data, 0, 0);
+  ctx.imageSmoothingQuality = 'high'; ctx.drawImage(tmp, 0, 0, sw, sh);
+  return cv;
+}
+function toBlob(cv, mime, q) { return new Promise(function (res) { cv.toBlob(res, mime, q); }); }
+
+function hasTransparency(d) { for (var i = 3; i < d.length; i += 4) if (d[i] < 128) return true; return false; }
+
+async function encodeGif(dec, sw, sh, colors, onProgress) {
+  var gif = GIFEncoder(), anyAlpha = false;
+  for (var i = 0; i < dec.frames.length; i++) {
+    var cv = scaledCanvas(dec.frames[i], dec.width, dec.height, sw, sh);
+    var rgba = cv.getContext('2d').getImageData(0, 0, sw, sh).data;
+    var alpha = hasTransparency(rgba); anyAlpha = anyAlpha || alpha;
+    var palette, index, opts = { delay: Math.max(20, dec.frames[i].delay) };
+    if (alpha) {
+      palette = quantize(rgba, colors, { format: 'rgba4444', oneBitAlpha: true });
+      index = applyPalette(rgba, palette, 'rgba4444');
+      var t = palette.findIndex(function (c) { return c.length > 3 && c[3] === 0; });
+      if (t >= 0) { opts.transparent = true; opts.transparentIndex = t; }
+      opts.dispose = 2;
+    } else {
+      palette = quantize(rgba, colors, { format: 'rgb565' });
+      index = applyPalette(rgba, palette, 'rgb565');
+    }
+    opts.palette = palette;
+    if (i === 0) opts.repeat = dec.frames.length > 1 ? dec.loop : -1;
+    gif.writeFrame(index, sw, sh, opts);
+    onProgress((i + 1) / dec.frames.length);
+    if (i % 2 === 1) await tick();
+  }
+  gif.finish();
+  return new Blob([gif.bytes()], { type: 'image/gif' });
+}
+
+async function encodeStill(dec, fmtKey, q, sw, sh) {
+  var f = FORMATS[fmtKey];
+  var cv = scaledCanvas(dec.frames[0], dec.width, dec.height, sw, sh, fmtKey === 'jpg' ? '#ffffff' : null);
+  var blob = await toBlob(cv, f.mime, f.lossy ? q : undefined);
+  if (!blob || blob.type !== f.mime) throw fail("This browser can't create " + f.label + ' files.');
+  return blob;
+}
+
+async function encodeAnimatedWebp(dec, q, sw, sh, onProgress) {
+  var anmf = [], alpha = false;
+  for (var i = 0; i < dec.frames.length; i++) {
+    var cv = scaledCanvas(dec.frames[i], dec.width, dec.height, sw, sh);
+    var blob = await toBlob(cv, 'image/webp', q);
+    if (!blob || blob.type !== 'image/webp') throw fail("This browser can't create animated WebP files. Try GIF instead.");
+    var b = new Uint8Array(await blob.arrayBuffer()), pos = 12, keep = [];
+    while (pos + 8 <= b.length) {                       // keep only the image chunks of each frame
+      var id = fourcc(b, pos), size = u32(b, pos + 4), end = pos + 8 + size + (size & 1);
+      if (id === 'ALPH' || id === 'VP8L') alpha = true;
+      if (id === 'ALPH' || id === 'VP8 ' || id === 'VP8L') keep.push(b.subarray(pos, end));
+      pos = end;
+    }
+    if (!keep.length) throw fail("Couldn't build the animated WebP.");
+    var head = new Uint8Array([0, 0, 0, 0, 0, 0].concat(le(sw - 1, 3), le(sh - 1, 3), le(Math.max(20, dec.frames[i].delay), 3), [2]));
+    anmf.push(chunk('ANMF', concat([head].concat(keep))));   // flag 2 = replace pixels (no blending)
+    onProgress((i + 1) / dec.frames.length);
+    if (i % 2 === 1) await tick();
+  }
+  var vp8x = chunk('VP8X', new Uint8Array([0x02 | (alpha ? 0x10 : 0), 0, 0, 0].concat(le(sw - 1, 3), le(sh - 1, 3))));
+  var anim = chunk('ANIM', new Uint8Array([0, 0, 0, 0].concat(le(dec.loop || 0, 2))));
+  return new Blob([riff(concat([vp8x, anim].concat(anmf)))], { type: 'image/webp' });
+}
+
+// ======================================================================
+//  queue + UI
+// ======================================================================
+function qualityValue() {
+  var f = FORMATS[fmt]; if (!f.lossy && !f.gif) return null;
+  return QUALITIES[f.gif ? 'gif' : 'lossy'].filter(function (x) { return x[0] === quality; })[0][2];
+}
+function settingsKey() { return fmt + '|' + (FORMATS[fmt].lossy || FORMATS[fmt].gif ? quality : '-') + '|' + maxW; }
+function needsWork(it) { return it.status !== 'working' && !it.tooBig && !(it.status === 'done' && it.doneKey === settingsKey()); }
+
+function renderOptions() {
+  var f = $('formats'); f.textContent = '';
+  Object.keys(FORMATS).forEach(function (k) {
+    var b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'radio'); b.disabled = running;
+    b.className = 'chip' + (k === fmt ? ' active' : ''); b.setAttribute('aria-checked', String(k === fmt)); b.textContent = FORMATS[k].label;
+    b.addEventListener('click', function () { fmt = k; renderOptions(); renderQueue(); });
+    f.appendChild(b);
+  });
+  $('formatHint').textContent = FORMATS[fmt].label + ': ' + FORMATS[fmt].hint;
+  var cur = FORMATS[fmt], qf = $('qualityField');
+  qf.style.display = (cur.lossy || cur.gif) ? '' : 'none';
+  $('qualityLabel').textContent = cur.gif ? 'Colors' : 'Quality';
+  var q = $('qualities'); q.textContent = '';
+  if (cur.lossy || cur.gif) QUALITIES[cur.gif ? 'gif' : 'lossy'].forEach(function (pair) {
+    var b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'radio'); b.disabled = running;
+    b.className = 'chip' + (pair[0] === quality ? ' active' : ''); b.setAttribute('aria-checked', String(pair[0] === quality)); b.textContent = pair[1];
+    b.addEventListener('click', function () { quality = pair[0]; renderOptions(); renderQueue(); });
+    q.appendChild(b);
+  });
+  var s = $('sizes'); s.textContent = '';
+  SIZES.forEach(function (pair) {
+    var b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'radio'); b.disabled = running;
+    b.className = 'chip' + (pair[0] === maxW ? ' active' : ''); b.setAttribute('aria-checked', String(pair[0] === maxW)); b.textContent = pair[1];
+    b.addEventListener('click', function () { maxW = pair[0]; renderOptions(); renderQueue(); });
+    s.appendChild(b);
+  });
+}
+
+var rowEls = {};
+function renderQueue() {
+  var seen = {};
+  items.forEach(function (it, idx) {
+    seen[it.id] = true;
+    var r = rowEls[it.id];
+    if (!r) {
+      r = rowEls[it.id] = {};
+      r.row = document.createElement('div');
+      r.thumb = document.createElement('div'); r.thumb.className = 'q-thumb';
+      r.name = document.createElement('div'); r.name.className = 'q-name';
+      r.title = document.createElement('b'); r.sub = document.createElement('span');
+      r.name.appendChild(r.title); r.name.appendChild(r.sub);
+      r.act = document.createElement('div'); r.act.className = 'q-act';
+      r.row.appendChild(r.thumb); r.row.appendChild(r.name); r.row.appendChild(r.act);
+    }
+    r.row.className = 'q-row q-img ' + it.status;
+    r.title.textContent = it.file.name;
+    var text = fmtSize(it.file.size);
+    if (it.status === 'done') text += ' → ' + fmtSize(it.size) + ' ' + it.outLabel + (it.note ? ' · ' + it.note : '');
+    else if (it.status === 'working') text = it.msg || 'Converting…';
+    else if (it.status === 'error' || it.tooBig) text = it.msg;
+    r.sub.textContent = text; r.sub.className = (it.status === 'error' || it.tooBig) ? 'q-error' : 'muted';
+    if (it.status === 'working') {
+      if (!r.bar) { r.bar = document.createElement('div'); r.bar.className = 'q-bar'; r.fill = document.createElement('i'); r.bar.appendChild(r.fill); r.name.appendChild(r.bar); }
+      r.fill.style.width = Math.round((it.progress || 0) * 100) + '%';
+    } else if (r.bar) { r.bar.remove(); r.bar = null; r.fill = null; }
+    // thumbnail = the result (animated results animate right here)
+    if (it.status === 'done') {
+      if (!r.img) { r.img = document.createElement('img'); r.img.alt = ''; r.thumb.textContent = ''; r.thumb.appendChild(r.img); }
+      if (r.imgUrl !== it.url) { r.img.src = it.url; r.imgUrl = it.url; }
+    } else if (r.img) { r.img.remove(); r.img = null; r.imgUrl = null; }
+    r.act.textContent = '';
+    if (it.status === 'done') {
+      var a = document.createElement('a'); a.className = 'btn btn-line btn-sm'; a.href = it.url; a.download = baseName(it.file.name) + '.' + it.outExt; a.textContent = 'Download';
+      r.act.appendChild(a);
+    }
+    if (it.status !== 'working') {
+      var rm = document.createElement('button'); rm.type = 'button'; rm.className = 'tray-btn'; rm.setAttribute('aria-label', 'remove ' + it.file.name); rm.textContent = '×';
+      rm.addEventListener('click', function () { removeItem(it.id); });
+      r.act.appendChild(rm);
+    }
+    if (qEl.children[idx] !== r.row) qEl.insertBefore(r.row, qEl.children[idx] || null);
+  });
+  Object.keys(rowEls).forEach(function (id) { if (!seen[id]) { rowEls[id].row.remove(); delete rowEls[id]; } });
+  convertBtn.disabled = running || !items.some(needsWork);
+  convertBtn.textContent = running ? 'Converting…' : 'Convert';
+  clearBtn.style.display = items.length && !running ? '' : 'none';
+}
+
+function removeItem(id) {
+  var it = items.filter(function (x) { return x.id === id; })[0];
+  if (it && it.url) URL.revokeObjectURL(it.url);
+  items = items.filter(function (x) { return x.id !== id; }); renderQueue();
+}
+function addFiles(list) {
+  Array.prototype.forEach.call(list, function (file) {
+    var it = { id: nextId++, file: file, status: 'waiting', progress: 0 };
+    if (file.size > MAX_BYTES) { it.tooBig = true; it.msg = 'Too big (max 50 MB in the browser)'; }
+    items.push(it);
+  });
+  setStatus(''); renderQueue();
+}
+
+async function convertOne(it) {
+  it.status = 'working'; it.progress = 0; it.msg = 'Reading…'; renderQueue(); await tick();
+  var dec = await decodeImage(it.file);
+  var scale = maxW && dec.width > maxW ? maxW / dec.width : 1;
+  var sw = Math.max(1, Math.round(dec.width * scale)), sh = Math.max(1, Math.round(dec.height * scale));
+  var q = qualityValue(), blob, note = '';
+  it.msg = 'Converting…';
+  var onProg = function (p) { it.progress = p; var r = rowEls[it.id]; if (r && r.fill) r.fill.style.width = Math.round(p * 100) + '%'; };
+
+  if (fmt === 'gif') blob = await encodeGif(dec, sw, sh, q, onProg);
+  else if (fmt === 'webp' && dec.animated) {
+    if (dec.type === 'webp' && sw === dec.width) throw fail('This is already an animated WebP.');
+    blob = await encodeAnimatedWebp(dec, q, sw, sh, onProg);
+  } else {
+    blob = await encodeStill(dec, fmt, q, sw, sh);
+    if (dec.animated) note = 'first frame only';
+  }
+  if (dec.animated && (fmt === 'gif' || fmt === 'webp')) note = dec.frames.length + ' frames';
+  if (it.url) URL.revokeObjectURL(it.url);
+  it.url = URL.createObjectURL(blob); it.size = blob.size; it.outExt = FORMATS[fmt].ext; it.outLabel = FORMATS[fmt].label;
+  it.note = note; it.doneKey = settingsKey(); it.status = 'done'; it.progress = 1;
+}
+
+async function run() {
+  if (running) return;
+  running = true; renderOptions(); renderQueue();
+  var todo = items.filter(needsWork);
+  for (var i = 0; i < todo.length; i++) {
+    setStatus('Image ' + (i + 1) + ' of ' + todo.length);
+    try { await convertOne(todo[i]); }
+    catch (e) {
+      todo[i].status = 'error';
+      todo[i].msg = e && e.friendly ? e.message : 'Conversion failed. The image might be too big for this device.';
+      if (!(e && e.friendly)) console.debug('[image]', e);
+    }
+    renderQueue(); await tick();
+  }
+  var done = items.filter(function (x) { return x.status === 'done'; }).length;
+  setStatus(done ? 'Done. Your images are ready below.' : '', false);
+  running = false; renderOptions(); renderQueue();
+}
+
+convertBtn.addEventListener('click', run);
+clearBtn.addEventListener('click', function () { items.forEach(function (x) { if (x.url) URL.revokeObjectURL(x.url); }); items = []; setStatus(''); renderQueue(); });
+var dz = $('dropzone'), input = $('fileInput');
+input.addEventListener('change', function () { addFiles(input.files); input.value = ''; });
+['dragenter', 'dragover'].forEach(function (evt) { dz.addEventListener(evt, function (e) { e.preventDefault(); dz.classList.add('dragover'); }); });
+['dragleave', 'drop'].forEach(function (evt) { dz.addEventListener(evt, function (e) { e.preventDefault(); dz.classList.remove('dragover'); }); });
+dz.addEventListener('drop', function (e) { if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files); });
+document.addEventListener('paste', function (e) { var fs = e.clipboardData && e.clipboardData.files; if (fs && fs.length) addFiles(fs); });
+
+renderOptions(); renderQueue();
+</script>
+</body>
+</html>

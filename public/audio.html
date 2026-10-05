@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>system98 — Audio converter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;700&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="system98-logo.svg">
+<link rel="apple-touch-icon" href="system98-logo-512.png">
+<link rel="stylesheet" href="system98.css">
+</head>
+<body>
+
+<div class="panelbar">
+  <div class="panelbar-inner wrap">
+    <a class="brand" href="/">
+      <span class="brand-mark">
+        <svg viewBox="12 15 40 34" fill="none" aria-hidden="true">
+          <rect x="12" y="15" width="40" height="34" rx="6" fill="#15272B"/>
+          <path d="M12 25h40" stroke="#48B9C7" stroke-opacity=".45" stroke-width="2"/>
+          <circle cx="18.5" cy="20" r="2" fill="#FFA71D"/>
+          <path d="M21 32l6 5.5-6 5.5" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      system98
+    </a>
+
+    <a class="panel-link" href="/#tools" data-i18n="nav_tools">Tools</a>
+    <a class="panel-link" href="/#about" data-i18n="nav_about">About</a>
+    <a class="panel-link" href="/support" data-i18n="nav_support">Support</a>
+
+    <span class="panel-spacer"></span>
+
+    <div class="tray">
+      <div class="lang-wrap" id="langWrap">
+        <button type="button" class="tray-btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="choose language / Sprache wählen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"/></svg>
+          <span id="langBtnLabel">EN</span>
+        </button>
+        <ul class="lang-list" id="langList" role="listbox" aria-label="choose language / Sprache wählen">
+          <li class="lang-option active" data-lang="en" role="option" aria-selected="true"><span>English</span><span class="lang-code">EN</span></li>
+          <li class="lang-option" data-lang="de" role="option" aria-selected="false"><span>Deutsch</span><span class="lang-code">DE</span></li>
+          <li class="lang-option" data-lang="fr" role="option" aria-selected="false"><span>Français</span><span class="lang-code">FR</span></li>
+          <li class="lang-option" data-lang="es" role="option" aria-selected="false"><span>Español</span><span class="lang-code">ES</span></li>
+          <li class="lang-option" data-lang="it" role="option" aria-selected="false"><span>Italiano</span><span class="lang-code">IT</span></li>
+          <li class="lang-option" data-lang="pt" role="option" aria-selected="false"><span>Português</span><span class="lang-code">PT</span></li>
+          <li class="lang-option" data-lang="nl" role="option" aria-selected="false"><span>Nederlands</span><span class="lang-code">NL</span></li>
+          <li class="lang-option" data-lang="pl" role="option" aria-selected="false"><span>Polski</span><span class="lang-code">PL</span></li>
+          <li class="lang-option" data-lang="tr" role="option" aria-selected="false"><span>Türkçe</span><span class="lang-code">TR</span></li>
+          <li class="lang-option" data-lang="ru" role="option" aria-selected="false"><span>Русский</span><span class="lang-code">RU</span></li>
+        </ul>
+      </div>
+      <button id="themeToggle" class="tray-btn" type="button" aria-label="Toggle theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2.5 12h2M19.5 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap stack" id="top">
+<section class="win boot" id="audio">
+  <div class="titlebar"><span class="dots"><i></i><i></i><i></i></span><span class="title">audio.sh</span><button class="collapse" type="button" aria-expanded="true" title="collapse"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button></div>
+  <div class="win-body-wrap"><div class="win-body-inner">
+  <div class="page-hero">
+    <span class="eyebrow">tool</span>
+    <h1>Audio Converter</h1>
+    <p class="lead" style="margin-top:12px;color:var(--muted);font-size:15.5px;max-width:58ch;">Turn MP4 into MP3, MP3 into OGG, or almost any audio or video file into the format you need. The conversion runs <strong>in your browser</strong>, so your files never leave your device.</p>
+  </div>
+
+  <div class="tool-body">
+    <div class="field">
+      <span class="field-label">Convert to</span>
+      <div class="chip-row" id="formats" role="radiogroup" aria-label="output format"></div>
+      <p class="field-hint" id="formatHint"></p>
+    </div>
+
+    <div class="field" id="qualityField" style="margin-top:18px;">
+      <span class="field-label">Quality</span>
+      <div class="chip-row" id="qualities" role="radiogroup" aria-label="quality"></div>
+    </div>
+
+    <label class="dropzone" id="dropzone" for="fileInput" style="margin-top:22px;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M12 4l-4 4M12 4l4 4"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+      <div>Drop audio or video files here, or click to choose</div>
+      <input type="file" id="fileInput" multiple accept="audio/*,video/*,.mp3,.mp4,.m4a,.aac,.ogg,.oga,.opus,.wav,.flac,.wma,.webm,.mkv,.mov,.avi,.3gp,.amr">
+      <div class="file-name">MP3, MP4, M4A, WAV, FLAC, OGG, OPUS, WEBM, MKV, MOV … up to 200 MB each</div>
+    </label>
+
+    <div class="queue" id="queue" aria-live="polite"></div>
+
+    <div class="tool-actions">
+      <button class="btn btn-fill" type="button" id="convertBtn" disabled>Convert</button>
+      <button class="btn btn-line" type="button" id="cancelBtn" style="display:none;">Cancel</button>
+      <button class="btn btn-line" type="button" id="clearBtn" style="display:none;">Clear list</button>
+    </div>
+    <p class="tool-status" id="status" role="status"></p>
+
+    <p class="hint-line">The first conversion downloads the converter once (about 31&nbsp;MB), after that your browser keeps it. Big files need a fair amount of memory, so on a phone stick to smaller ones. Conversion is done by <a href="https://ffmpeg.org" target="_blank" rel="noopener">FFmpeg</a> (GPL-2.0-or-later) compiled to WebAssembly with <a href="https://github.com/ffmpegwasm/ffmpeg.wasm" target="_blank" rel="noopener">ffmpeg.wasm</a>, whose source you can find there.</p>
+  </div>
+  </div></div>
+</section>
+</main>
+
+<div class="statusbar">
+  <div class="statusbar-inner wrap">
+    <span class="seg" data-i18n="footer_shipped">last shipped a few days ago</span>
+    <span class="seg" id="clock" aria-hidden="true"></span>
+    <span class="seg" id="onlineNow" hidden></span>
+    <span class="sep"></span>
+    <a class="seg" href="/login" data-i18n="footer_staff">Staff login</a>
+    <a class="seg" href="/status">Status</a>
+    <a class="seg" href="/terms" data-i18n="footer_terms">Terms</a>
+    <a class="seg" href="/privacy" data-i18n="footer_privacy">Privacy</a>
+    <span class="seg" data-i18n="footer_fine">© 2026 system98</span>
+  </div>
+</div>
+
+<script src="system98.js"></script>
+<script src="/presence.js" defer></script>
+<script>window.__s98audio = true;</script>
+<script type="module">
+import { FFmpeg } from '/vendor/ffmpeg/index.js';
+
+var MAX_BYTES = 200 * 1024 * 1024;
+
+var FORMATS = {
+  mp3:  { label: 'MP3',  ext: 'mp3',  mime: 'audio/mpeg', hint: 'plays everywhere',
+          args: function (q) { return ['-c:a', 'libmp3lame', '-b:a', { small: '128k', balanced: '192k', high: '320k' }[q]]; } },
+  ogg:  { label: 'OGG',  ext: 'ogg',  mime: 'audio/ogg',  hint: 'open format (Vorbis), small files',
+          args: function (q) { return ['-c:a', 'libvorbis', '-q:a', { small: '3', balanced: '5', high: '8' }[q]]; } },
+  opus: { label: 'OPUS', ext: 'opus', mime: 'audio/ogg',  hint: 'best quality for its size, great for voice',
+          args: function (q) { return ['-c:a', 'libopus', '-b:a', { small: '64k', balanced: '128k', high: '192k' }[q]]; } },
+  m4a:  { label: 'M4A',  ext: 'm4a',  mime: 'audio/mp4',  hint: 'AAC, works well on Apple devices',
+          args: function (q) { return ['-c:a', 'aac', '-b:a', { small: '128k', balanced: '192k', high: '256k' }[q]]; } },
+  flac: { label: 'FLAC', ext: 'flac', mime: 'audio/flac', hint: 'lossless, big files', lossless: true,
+          args: function () { return ['-c:a', 'flac']; } },
+  wav:  { label: 'WAV',  ext: 'wav',  mime: 'audio/wav',  hint: 'uncompressed, very big files', lossless: true,
+          args: function () { return ['-c:a', 'pcm_s16le']; } }
+};
+var QUALITIES = [['small', 'Small'], ['balanced', 'Balanced'], ['high', 'High']];
+
+var fmt = 'mp3', quality = 'balanced';
+var items = [];           // {id, file, status: waiting|working|done|error, progress, msg, doneFmt, url, size}
+var nextId = 1, running = false, cancelled = false;
+var ffmpeg = null, loadingPromise = null, logs = [], current = null;
+
+function $(id) { return document.getElementById(id); }
+var qEl = $('queue'), statusEl = $('status'), convertBtn = $('convertBtn'), cancelBtn = $('cancelBtn'), clearBtn = $('clearBtn');
+
+function setStatus(msg, isError) { statusEl.textContent = msg || ''; statusEl.classList.toggle('error', Boolean(isError)); }
+function fmtSize(n) { return n >= 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB'; }
+function baseName(name) { var i = name.lastIndexOf('.'); return (i > 0 ? name.slice(0, i) : name).slice(0, 120) || 'audio'; }
+
+// ---------- option chips ----------
+function renderOptions() {
+  var f = $('formats'); f.textContent = '';
+  Object.keys(FORMATS).forEach(function (k) {
+    var b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'radio');
+    b.className = 'chip' + (k === fmt ? ' active' : ''); b.setAttribute('aria-checked', String(k === fmt));
+    b.textContent = FORMATS[k].label; b.disabled = running;
+    b.addEventListener('click', function () { fmt = k; renderOptions(); renderQueue(); });
+    f.appendChild(b);
+  });
+  $('formatHint').textContent = FORMATS[fmt].label + ': ' + FORMATS[fmt].hint;
+  var qf = $('qualityField'); qf.style.display = FORMATS[fmt].lossless ? 'none' : '';
+  var q = $('qualities'); q.textContent = '';
+  QUALITIES.forEach(function (pair) {
+    var b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'radio');
+    b.className = 'chip' + (pair[0] === quality ? ' active' : ''); b.setAttribute('aria-checked', String(pair[0] === quality));
+    b.textContent = pair[1]; b.disabled = running;
+    b.addEventListener('click', function () { quality = pair[0]; renderOptions(); renderQueue(); });
+    q.appendChild(b);
+  });
+}
+
+// ---------- queue ----------
+function needsWork(it) { return it.status !== 'working' && !(it.status === 'done' && it.doneFmt === fmt + '|' + (FORMATS[fmt].lossless ? '-' : quality)) && !it.tooBig; }
+
+// Rows are updated in place (not rebuilt), otherwise a preview that is playing would be cut off
+// every time another file finishes.
+var rowEls = {};
+function renderQueue() {
+  var seen = {};
+  items.forEach(function (it, idx) {
+    seen[it.id] = true;
+    var r = rowEls[it.id];
+    if (!r) {
+      r = rowEls[it.id] = {};
+      r.row = document.createElement('div');
+      r.name = document.createElement('div'); r.name.className = 'q-name';
+      r.title = document.createElement('b'); r.sub = document.createElement('span');
+      r.name.appendChild(r.title); r.name.appendChild(r.sub);
+      r.act = document.createElement('div'); r.act.className = 'q-act';
+      r.row.appendChild(r.name); r.row.appendChild(r.act);
+    }
+    r.row.className = 'q-row ' + it.status;
+    r.title.textContent = it.file.name;
+    var text = fmtSize(it.file.size);
+    if (it.status === 'done') text += ' → ' + fmtSize(it.size) + ' ' + it.outLabel;
+    else if (it.status === 'working') text = it.msg || 'Converting…';
+    else if (it.status === 'error' || it.tooBig) text = it.msg;
+    r.sub.textContent = text;
+    r.sub.className = (it.status === 'error' || it.tooBig) ? 'q-error' : 'muted';
+
+    // progress bar only while working
+    if (it.status === 'working') {
+      if (!r.bar) { r.bar = document.createElement('div'); r.bar.className = 'q-bar'; r.fill = document.createElement('i'); r.bar.appendChild(r.fill); r.name.appendChild(r.bar); }
+      r.fill.style.width = Math.round((it.progress || 0) * 100) + '%';
+    } else if (r.bar) { r.bar.remove(); r.bar = null; r.fill = null; }
+
+    // preview player once there is a result
+    if (it.status === 'done') {
+      if (!r.audio) { r.audio = document.createElement('audio'); r.audio.className = 'q-audio'; r.audio.controls = true; r.audio.preload = 'metadata'; r.name.appendChild(r.audio); }
+      if (r.audioUrl !== it.url) { r.audio.src = it.url; r.audioUrl = it.url; }
+    } else if (r.audio) { r.audio.pause(); r.audio.remove(); r.audio = null; r.audioUrl = null; }
+
+    // buttons (no audio in here, so rebuilding is fine)
+    r.act.textContent = '';
+    if (it.status === 'done') {
+      var a = document.createElement('a'); a.className = 'btn btn-line btn-sm'; a.href = it.url; a.download = baseName(it.file.name) + '.' + it.outExt; a.textContent = 'Download';
+      r.act.appendChild(a);
+    }
+    if (it.status !== 'working') {
+      var rm = document.createElement('button'); rm.type = 'button'; rm.className = 'tray-btn'; rm.setAttribute('aria-label', 'remove ' + it.file.name); rm.textContent = '×';
+      rm.addEventListener('click', function () { removeItem(it.id); });
+      r.act.appendChild(rm);
+    }
+
+    // keep DOM order = list order without detaching rows that already sit in the right place
+    if (qEl.children[idx] !== r.row) qEl.insertBefore(r.row, qEl.children[idx] || null);
+  });
+  Object.keys(rowEls).forEach(function (id) {
+    if (!seen[id]) { var r = rowEls[id]; if (r.audio) r.audio.pause(); r.row.remove(); delete rowEls[id]; }
+  });
+  var pending = items.some(needsWork);
+  convertBtn.disabled = running || !pending;
+  convertBtn.textContent = running ? 'Converting…' : 'Convert';
+  cancelBtn.style.display = running ? '' : 'none';
+  clearBtn.style.display = items.length && !running ? '' : 'none';
+}
+
+function setProgress(it, p) {
+  it.progress = Math.max(0, Math.min(1, p || 0));
+  var r = rowEls[it.id];
+  if (r && r.fill) r.fill.style.width = Math.round(it.progress * 100) + '%';
+}
+
+function removeItem(id) {
+  var it = items.filter(function (x) { return x.id === id; })[0];
+  if (it && it.url) URL.revokeObjectURL(it.url);
+  items = items.filter(function (x) { return x.id !== id; });
+  renderQueue();
+}
+
+function addFiles(list) {
+  Array.prototype.forEach.call(list, function (file) {
+    var it = { id: nextId++, file: file, status: 'waiting', progress: 0 };
+    if (file.size > MAX_BYTES) { it.tooBig = true; it.msg = 'Too big (max 200 MB in the browser)'; }
+    items.push(it);
+  });
+  setStatus('');
+  renderQueue();
+}
+
+// ---------- ffmpeg ----------
+async function fetchBlobUrl(url, type, onBytes) {
+  var res = await fetch(url);
+  if (!res.ok || !res.body) throw new Error('download failed');
+  var reader = res.body.getReader(), chunks = [], got = 0;
+  for (;;) {
+    var r = await reader.read();
+    if (r.done) break;
+    chunks.push(r.value); got += r.value.length; onBytes(got);
+  }
+  return URL.createObjectURL(new Blob(chunks, { type: type }));
+}
+
+async function ensureLoaded() {
+  if (ffmpeg) return ffmpeg;
+  if (loadingPromise) return loadingPromise;
+  loadingPromise = (async function () {
+    var ff = new FFmpeg();
+    ff.on('log', function (e) { logs.push(e.message); if (logs.length > 60) logs.shift(); });
+    ff.on('progress', function (e) { if (current) setProgress(current, e.progress); });
+    var wasm = await fetchBlobUrl('/vendor/ffmpeg/ffmpeg-core.wasm', 'application/wasm', function (n) {
+      setStatus('Loading the converter… ' + (n / 1048576).toFixed(0) + ' MB');
+    });
+    setStatus('Starting the converter…');
+    await ff.load({ coreURL: new URL('/vendor/ffmpeg/ffmpeg-core.js', location.href).href, wasmURL: wasm });
+    ffmpeg = ff;
+    return ff;
+  })();
+  try { return await loadingPromise; } finally { loadingPromise = null; }
+}
+
+function explain(lines) {
+  var t = lines.join('\n');
+  if (/does not contain any stream|matches no streams|Stream map .* matches no streams|no audio/i.test(t)) return 'This file has no audio track.';
+  if (/Invalid data found|could not find codec|moov atom not found|Unknown decoder|Unsupported|Invalid argument|Failed to read|Could not seek|Error opening input/i.test(t)) return "Couldn't read this file. Is it really audio or video?";
+  console.debug('[audio] ffmpeg log', t);
+  return 'Conversion failed.';
+}
+
+async function convertOne(ff, it) {
+  var f = FORMATS[fmt];
+  var ext = (it.file.name.split('.').pop() || '').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 5) || 'bin';
+  var inName = 'input.' + ext, outName = 'output.' + f.ext;
+  current = it; logs.length = 0;
+  it.status = 'working'; it.progress = 0; it.msg = 'Converting…'; renderQueue();
+  try {
+    await ff.writeFile(inName, new Uint8Array(await it.file.arrayBuffer()));
+    var code = await ff.exec(['-i', inName, '-vn', '-map_metadata', '0'].concat(f.args(quality), ['-y', outName]));
+    if (cancelled) throw new Error('cancelled');
+    if (code !== 0) { var e = new Error(explain(logs)); e.friendly = true; throw e; }
+    var data = await ff.readFile(outName);
+    if (it.url) URL.revokeObjectURL(it.url);
+    it.url = URL.createObjectURL(new Blob([data], { type: f.mime }));
+    it.size = data.length; it.outExt = f.ext; it.outLabel = f.label;
+    it.doneFmt = fmt + '|' + (f.lossless ? '-' : quality);
+    it.status = 'done'; it.progress = 1;
+  } finally {
+    current = null;
+    if (!cancelled) {
+      try { await ff.deleteFile(inName); } catch (e) {}
+      try { await ff.deleteFile(outName); } catch (e) {}
+    }
+  }
+}
+
+async function run() {
+  if (running) return;
+  if (!window.WebAssembly || !window.Worker) { setStatus("This browser can't run the converter.", true); return; }
+  running = true; cancelled = false; renderOptions(); renderQueue();
+  var failedToStart = false;
+  try {
+    var ff = await ensureLoaded();
+    setStatus('');
+    var todo = items.filter(needsWork);
+    for (var i = 0; i < todo.length; i++) {
+      if (cancelled) break;
+      setStatus('File ' + (i + 1) + ' of ' + todo.length);
+      try {
+        await convertOne(ff, todo[i]);
+      } catch (e) {
+        if (cancelled) { todo[i].status = 'waiting'; break; }
+        todo[i].status = 'error';
+        todo[i].msg = e && e.friendly ? e.message : 'Conversion failed. The file might be too big for this device.';
+        // an out-of-memory crash kills the worker, so start fresh for the next file
+        if (!(e && e.friendly)) { try { ff.terminate(); } catch (x) {} ffmpeg = null; ff = await ensureLoaded(); }
+      }
+      renderQueue();
+    }
+    var done = items.filter(function (x) { return x.status === 'done'; }).length;
+    setStatus(cancelled ? 'Cancelled.' : done ? 'Done. Your files are ready below.' : '', false);
+  } catch (e) {
+    failedToStart = true;
+    setStatus("The converter couldn't start. Reload the page and try again (low memory can cause this).", true);
+  } finally {
+    running = false; cancelled = false;
+    items.forEach(function (x) { if (x.status === 'working') x.status = 'waiting'; });
+    renderOptions(); renderQueue();
+    if (failedToStart) ffmpeg = null;
+  }
+}
+
+convertBtn.addEventListener('click', run);
+cancelBtn.addEventListener('click', function () {
+  cancelled = true;
+  try { if (ffmpeg) ffmpeg.terminate(); } catch (e) {}
+  ffmpeg = null; setStatus('Cancelling…');
+});
+clearBtn.addEventListener('click', function () {
+  items.forEach(function (x) { if (x.url) URL.revokeObjectURL(x.url); });
+  items = []; setStatus(''); renderQueue();
+});
+
+var dz = $('dropzone'), input = $('fileInput');
+input.addEventListener('change', function () { addFiles(input.files); input.value = ''; });
+['dragenter', 'dragover'].forEach(function (evt) { dz.addEventListener(evt, function (e) { e.preventDefault(); dz.classList.add('dragover'); }); });
+['dragleave', 'drop'].forEach(function (evt) { dz.addEventListener(evt, function (e) { e.preventDefault(); dz.classList.remove('dragover'); }); });
+dz.addEventListener('drop', function (e) { if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files); });
+
+renderOptions(); renderQueue();
+</script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>system98 — small tools, chilled out (hub)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;700&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="system98-logo.svg">
+<link rel="apple-touch-icon" href="system98-logo-512.png">
+<link rel="stylesheet" href="system98.css">
+</head>
+<body>
+
+<div class="panelbar">
+  <div class="panelbar-inner wrap">
+    <a class="brand" href="/">
+      <span class="brand-mark">
+        <svg viewBox="12 15 40 34" fill="none" aria-hidden="true">
+          <rect x="12" y="15" width="40" height="34" rx="6" fill="#15272B"/>
+          <path d="M12 25h40" stroke="#48B9C7" stroke-opacity=".45" stroke-width="2"/>
+          <circle cx="18.5" cy="20" r="2" fill="#FFA71D"/>
+          <path d="M21 32l6 5.5-6 5.5" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      system98
+    </a>
+
+    <a class="panel-link" href="/#tools" data-i18n="nav_tools">Tools</a>
+    <a class="panel-link" href="/#about" data-i18n="nav_about">About</a>
+    <a class="panel-link" href="/support" data-i18n="nav_support">Support</a>
+
+    <span class="panel-spacer"></span>
+
+    <div class="tray">
+      <div class="lang-wrap" id="langWrap">
+        <button type="button" class="tray-btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="choose language / Sprache wählen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"/></svg>
+          <span id="langBtnLabel">EN</span>
+        </button>
+        <ul class="lang-list" id="langList" role="listbox" aria-label="choose language / Sprache wählen">
+          <li class="lang-option active" data-lang="en" role="option" aria-selected="true"><span>English</span><span class="lang-code">EN</span></li>
+          <li class="lang-option" data-lang="de" role="option" aria-selected="false"><span>Deutsch</span><span class="lang-code">DE</span></li>
+          <li class="lang-option" data-lang="fr" role="option" aria-selected="false"><span>Français</span><span class="lang-code">FR</span></li>
+          <li class="lang-option" data-lang="es" role="option" aria-selected="false"><span>Español</span><span class="lang-code">ES</span></li>
+          <li class="lang-option" data-lang="it" role="option" aria-selected="false"><span>Italiano</span><span class="lang-code">IT</span></li>
+          <li class="lang-option" data-lang="pt" role="option" aria-selected="false"><span>Português</span><span class="lang-code">PT</span></li>
+          <li class="lang-option" data-lang="nl" role="option" aria-selected="false"><span>Nederlands</span><span class="lang-code">NL</span></li>
+          <li class="lang-option" data-lang="pl" role="option" aria-selected="false"><span>Polski</span><span class="lang-code">PL</span></li>
+          <li class="lang-option" data-lang="tr" role="option" aria-selected="false"><span>Türkçe</span><span class="lang-code">TR</span></li>
+          <li class="lang-option" data-lang="ru" role="option" aria-selected="false"><span>Русский</span><span class="lang-code">RU</span></li>
+        </ul>
+      </div>
+      <button id="themeToggle" class="tray-btn" type="button" aria-label="Toggle theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2.5 12h2M19.5 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap stack" id="top">
+
+  <!-- hero window -->
+  <section class="win hero boot">
+    <div class="titlebar">
+      <span class="dots"><i></i><i></i><i></i></span>
+      <span class="title">welcome — system98.org</span>
+      <button class="collapse" type="button" aria-expanded="true" title="collapse"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+    </div>
+    <div class="win-body-wrap"><div class="win-body-inner">
+    <div class="hero-body">
+      <h1 data-i18n="hero_h1_home">Small tasks, solved without the detour.</h1>
+      <p class="lead" data-i18n="hero_lead_home">Small tools for the stuff you need twice a month and never remember: check a site, convert audio and images, build codes, cut out backgrounds. Open it, do it, done.</p>
+      <div class="actions">
+        <a class="btn btn-fill" href="/#tools" data-i18n="btn_tools">See the tools</a>
+        <a class="btn btn-line" href="/#about" data-i18n="btn_about">Who's behind this</a>
+      </div>
+      <div class="hero-meta">
+        <span><b id="toolCount">5</b> <span data-i18n="stats_tools">tools live</span></span>
+        <span data-i18n="stat_free">free forever</span>
+        <span data-i18n="stat_nosignup">no sign-up</span>
+      </div>
+    </div>
+    </div></div>
+  </section>
+
+  <!-- tools window -->
+  <section class="win boot" id="tools">
+    <div class="titlebar">
+      <span class="dots"><i></i><i></i><i></i></span>
+      <span class="title">~/tools</span>
+      <button class="collapse" type="button" aria-expanded="true" title="collapse"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+    </div>
+    <div class="win-body-wrap"><div class="win-body-inner">
+    <div class="win-body">
+    <div class="tools-intro">
+      <h2 data-i18n="tools_head_h2">All the tools, one place</h2>
+      <p data-i18n="tools_head_p">Each one runs as its own small page. No sign-up, no waiting, no subscription.</p>
+    </div>
+
+    <a class="app" href="#">
+      <span class="app-icon" style="background: rgba(255,0,0,.12);">
+        <svg viewBox="0 0 24 24"><rect x="1" y="4.5" width="22" height="15" rx="5" fill="#FF0000"/><path d="M10 8.6 16 12l-6 3.4z" fill="#fff"/></svg>
+      </span>
+      <div>
+        <h3 data-i18n="tool1_h3">YouTube Downloader</h3>
+        <p data-i18n="tool1_p">Paste the link, pick a format, save the video or just the audio.</p>
+        <span class="app-tag" data-i18n="tool1_tag">supports mp4 &amp; mp3</span>
+      </div>
+      <span class="app-open" data-i18n="tool_open">Open tool</span>
+    </a>
+
+    <a class="app" href="#">
+      <span class="app-icon" style="background: rgba(255,85,0,.13);">
+        <svg viewBox="0 0 24 24">
+          <rect x="1.6" y="13.3" width="1.3" height="3.9" rx=".6" fill="#FF5500"/>
+          <rect x="3.7" y="11.4" width="1.3" height="5.8" rx=".6" fill="#FF5500"/>
+          <rect x="5.8" y="9.6" width="1.3" height="7.6" rx=".6" fill="#FF5500"/>
+          <path d="M8.2 17.2h9.9a3.4 3.4 0 0 0 .3-6.78 4.9 4.9 0 0 0-9.16-1.9A3.4 3.4 0 0 0 8.2 17.2z" fill="#FF5500"/>
+        </svg>
+      </span>
+      <div>
+        <h3 data-i18n="tool2_h3">SoundCloud Downloader</h3>
+        <p data-i18n="tool2_p">Pull tracks straight from the link as MP3, no detour through other sites.</p>
+        <span class="app-tag" data-i18n="tool2_tag">single tracks</span>
+      </div>
+      <span class="app-open" data-i18n="tool_open">Open tool</span>
+    </a>
+
+    <a class="app" href="#">
+      <span class="app-icon" style="background: rgba(29,185,84,.15);">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="11" fill="#1DB954"/>
+          <path d="M6.4 9.6c3.3-.9 7.9-.7 10.7.9" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M6.9 12.8c2.8-.7 6.5-.6 8.9.7" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/>
+          <path d="M7.4 15.9c2.2-.5 5.1-.4 7.1.6" fill="none" stroke="#fff" stroke-width="1.1" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <div>
+        <h3 data-i18n="tool3_h3">Spotify Downloader</h3>
+        <p data-i18n="tool3_p">Save single songs or entire playlists as audio files.</p>
+        <span class="app-tag" data-i18n="tool3_tag">whole playlists too</span>
+      </div>
+      <span class="app-open" data-i18n="tool_open">Open tool</span>
+    </a>
+
+    <a class="app" href="/qrcode">
+      <span class="app-icon" style="background: var(--teal-soft);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM17 17h4v4h-4zM14 21h3"/></svg>
+      </span>
+      <div>
+        <h3 data-i18n="tool4_h3">Link → QR code</h3>
+        <p data-i18n="tool4_p">Turn any link into a QR code and save it as an image.</p>
+        <span class="app-tag" data-i18n="tool4_tag">as PNG or SVG</span>
+      </div>
+      <span class="app-open" data-i18n="tool_open">Open tool</span>
+    </a>
+
+    <a class="app" href="/remove-bg">
+      <span class="app-icon" style="background: rgba(178,102,255,.15);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#9457e0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16l4.5-6 3.5 4.5 2.5-3L20 16"/><rect x="3" y="4" width="18" height="16" rx="3" stroke-dasharray="3 3"/><circle cx="8.5" cy="8.5" r="1.5" fill="#9457e0" stroke="none"/></svg>
+      </span>
+      <div>
+        <h3 data-i18n="tool5_h3">Background Remover</h3>
+        <p data-i18n="tool5_p">Upload an image, remove the background automatically, save it as a transparent PNG.</p>
+        <span class="app-tag" data-i18n="tool5_tag">done in seconds</span>
+      </div>
+      <span class="app-open" data-i18n="tool_open">Open tool</span>
+    </a>
+
+    <a class="app" href="/checker">
+      <span class="app-icon" style="background: var(--teal-soft);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2.5-6 4 12 2.5-6H21"/></svg>
+      </span>
+      <div>
+        <h3 data-i18n="tool6_h3">Is it down?</h3>
+        <p data-i18n="tool6_p">Type a website and see if it is up, how fast it answers and where it redirects.</p>
+        <span class="app-tag" data-i18n="tool6_tag">with a watchlist</span>
+      </div>
+      <span class="app-open" data-i18n="tool_open">Open tool</span>
+    </a>
+
+    <a class="app" href="/audio">
+      <span class="app-icon" style="background: var(--teal-soft);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v4M8 7v10M12 4v16M16 8v8M20 11v2"/></svg>
+      </span>
+      <div>
+        <h3 data-i18n="tool7_h3">Audio Converter</h3>
+        <p data-i18n="tool7_p">MP4 to MP3, MP3 to OGG and more. Runs in your browser, files never leave your device.</p>
+        <span class="app-tag" data-i18n="tool7_tag">mp3 · ogg · opus · m4a · flac · wav</span>
+      </div>
+      <span class="app-open" data-i18n="tool_open">Open tool</span>
+    </a>
+
+    <a class="app" href="/image">
+      <span class="app-icon" style="background: var(--teal-soft);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-8 9"/></svg>
+      </span>
+      <div>
+        <h3 data-i18n="tool8_h3">Image Converter</h3>
+        <p data-i18n="tool8_p">PNG to GIF, WebP to GIF and back. Animations stay animated. Runs in your browser.</p>
+        <span class="app-tag" data-i18n="tool8_tag">png · jpg · webp · gif</span>
+      </div>
+      <span class="app-open" data-i18n="tool_open">Open tool</span>
+    </a>
+
+    <a class="app" href="/roblox-audio">
+      <span class="app-icon" style="background: var(--teal-soft);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/><path d="M8.5 11v0M11 8.5v5M13.5 10v2"/></svg>
+      </span>
+      <div>
+        <h3 data-i18n="tool9_h3">Roblox Audio Info</h3>
+        <p data-i18n="tool9_p">Look up an audio ID: creator, artist, favorites and length. Drop a file for loudness, peak and waveform.</p>
+        <span class="app-tag" data-i18n="tool9_tag">id · creator · loudness</span>
+      </div>
+      <span class="app-open" data-i18n="tool_open">Open tool</span>
+    </a>
+
+    <a class="app" href="/roblox-user">
+      <span class="app-icon" style="background: var(--teal-soft);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></svg>
+      </span>
+      <div>
+        <h3 data-i18n="tool10_h3">Roblox User Lookup</h3>
+        <p data-i18n="tool10_p">Look at a Roblox account: names, created date, friends, followers, groups and badges.</p>
+        <span class="app-tag" data-i18n="tool10_tag">username · id · profile</span>
+      </div>
+      <span class="app-open" data-i18n="tool_open">Open tool</span>
+    </a>
+
+    <div class="app pending">
+      <span class="app-icon">+</span>
+      <div>
+        <h3 data-i18n="soon_h3">Next tool</h3>
+        <p data-i18n="soon_p">Already on the list, but it'll land once it's actually done.</p>
+        <span class="app-tag" data-i18n="soon_tag">not merged yet</span>
+      </div>
+      <span class="app-open" data-i18n="tool_open">Open tool</span>
+    </div>
+    </div>
+    </div></div>
+  </section>
+
+  <!-- readme window -->
+  <section class="win boot" id="about">
+    <div class="titlebar">
+      <span class="dots"><i></i><i></i><i></i></span>
+      <span class="title">README</span>
+      <button class="collapse" type="button" aria-expanded="true" title="collapse"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+    </div>
+    <div class="win-body-wrap"><div class="win-body-inner">
+    <div class="readme-body">
+      <h2 data-i18n="about_h2">Built by one person, not a team.</h2>
+      <p data-i18n="about_p1">system98 came together over a few evenings because I was tired of the same small tasks: paste a link somewhere, wait for a download page, click away the third ad. Not here.</p>
+      <p data-i18n="about_p2">No tracking, no login, no data going anywhere. If a tool breaks or something's missing, just reach out.</p>
+      <div class="actions" style="margin-top:22px;">
+        <a class="btn btn-line" href="/support" data-i18n="about_support">Contact support</a>
+      </div>
+      <div class="signoff">
+        <span class="avatar">98</span>
+        <span><span class="status-dot"></span><span data-i18n="signoff_status">usually online, replies within a day</span></span>
+      </div>
+    </div>
+    </div></div>
+  </section>
+
+</main>
+
+<div class="statusbar">
+  <div class="statusbar-inner wrap">
+    <span class="seg" data-i18n="footer_shipped">last shipped a few days ago</span>
+    <span class="seg" id="clock" aria-hidden="true"></span>
+    <span class="seg" id="onlineNow" hidden></span>
+    <span class="sep"></span>
+    <a class="seg" href="/login" data-i18n="footer_staff">Staff login</a>
+    <a class="seg" href="/status">Status</a>
+    <a class="seg" href="/terms" data-i18n="footer_terms">Terms</a>
+    <a class="seg" href="/privacy" data-i18n="footer_privacy">Privacy</a>
+    <span class="seg" data-i18n="footer_fine">© 2026 system98</span>
+  </div>
+</div>
+
+<script src="system98.js"></script>
+
+<script src="/presence.js" defer></script>
+</body>
+</html>

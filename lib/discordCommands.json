@@ -1,0 +1,537 @@
+[
+  {
+    "name": "analyze",
+    "description": "Loudness (LUFS), peak, duration, bitrate and a waveform for an attached audio file",
+    "type": 1,
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
+    "options": [
+      {
+        "name": "file",
+        "description": "MP3, OGG (Vorbis or Opus), WAV or FLAC \u2014 up to 20 MB",
+        "type": 11,
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "shazam",
+    "description": "Identify the song in an attached audio file (title, artist, album, links)",
+    "type": 1,
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
+    "options": [
+      {
+        "name": "file",
+        "description": "An audio file with music in it \u2014 up to 20 MB",
+        "type": 11,
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "audio",
+    "description": "Look up a Roblox audio: creator, artist, favorites, length and upload date",
+    "type": 1,
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
+    "options": [
+      {
+        "name": "id",
+        "description": "Audio ID or a Roblox link",
+        "type": 3,
+        "required": true,
+        "max_length": 300
+      }
+    ]
+  },
+  {
+    "name": "user",
+    "description": "Look at a public Roblox profile: friends, followers, groups, badges and more",
+    "type": 1,
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
+    "options": [
+      {
+        "name": "user",
+        "description": "Username, user ID or a profile link",
+        "type": 3,
+        "required": true,
+        "max_length": 300
+      }
+    ]
+  },
+  {
+    "name": "avatar",
+    "description": "Fetch the Roblox avatar of a user (thumbnail)",
+    "type": 1,
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
+    "options": [
+      {
+        "name": "user",
+        "description": "Username, user ID or profile link",
+        "type": 3,
+        "required": true,
+        "max_length": 300
+      }
+    ]
+  },
+  {
+    "name": "bust",
+    "description": "Fetch the Roblox avatar bust of a user (thumbnail)",
+    "type": 1,
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
+    "options": [
+      {
+        "name": "user",
+        "description": "Username, user ID or profile link",
+        "type": 3,
+        "required": true,
+        "max_length": 300
+      }
+    ]
+  },
+  {
+    "name": "headshot",
+    "description": "Fetch the Roblox headshot of a user (thumbnail)",
+    "type": 1,
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
+    "options": [
+      {
+        "name": "user",
+        "description": "Username, user ID or profile link",
+        "type": 3,
+        "required": true,
+        "max_length": 300
+      }
+    ]
+  },
+  {
+    "name": "accountage",
+    "description": "Display the account age of a Roblox user",
+    "type": 1,
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
+    "options": [
+      {
+        "name": "user",
+        "description": "Username, user ID or profile link",
+        "type": 3,
+        "required": true,
+        "max_length": 300
+      }
+    ]
+  },
+  {
+    "name": "friends",
+    "description": "Fetch a user's friend count and a few names",
+    "type": 1,
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
+    "options": [
+      {
+        "name": "user",
+        "description": "Username, user ID or profile link",
+        "type": 3,
+        "required": true,
+        "max_length": 300
+      }
+    ]
+  },
+  {
+    "name": "arefriends",
+    "description": "Check if two Roblox users are friends",
+    "type": 1,
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
+    "options": [
+      {
+        "name": "user1",
+        "description": "First user",
+        "type": 3,
+        "required": true,
+        "max_length": 300
+      },
+      {
+        "name": "user2",
+        "description": "Second user",
+        "type": 3,
+        "required": true,
+        "max_length": 300
+      }
+    ]
+  },
+  {
+    "name": "usergroups",
+    "description": "Show the groups a Roblox user is in",
+    "type": 1,
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
+    "options": [
+      {
+        "name": "user",
+        "description": "Username, user ID or profile link",
+        "type": 3,
+        "required": true,
+        "max_length": 300
+      }
+    ]
+  },
+  {
+    "name": "group",
+    "description": "Fetch Roblox group info from a name or ID",
+    "type": 1,
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
+    "options": [
+      {
+        "name": "group",
+        "description": "Group name, group ID or link",
+        "type": 3,
+        "required": true,
+        "max_length": 300
+      }
+    ]
+  },
+  {
+    "name": "assetid",
+    "description": "Fetch information about a Roblox asset from its ID",
+    "type": 1,
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
+    "options": [
+      {
+        "name": "asset",
+        "description": "Asset ID or catalog link",
+        "type": 3,
+        "required": true,
+        "max_length": 300
+      }
+    ]
+  },
+  {
+    "name": "asseticon",
+    "description": "Fetch the icon/thumbnail of a Roblox asset",
+    "type": 1,
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
+    "options": [
+      {
+        "name": "asset",
+        "description": "Asset ID or catalog link",
+        "type": 3,
+        "required": true,
+        "max_length": 300
+      }
+    ]
+  },
+  {
+    "name": "game",
+    "description": "Search for a Roblox game",
+    "type": 1,
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
+    "options": [
+      {
+        "name": "name",
+        "description": "Game name to search for",
+        "type": 3,
+        "required": true,
+        "max_length": 300
+      }
+    ]
+  },
+  {
+    "name": "gamepass",
+    "description": "Fetch Roblox gamepass info from a GamePass ID",
+    "type": 1,
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
+    "options": [
+      {
+        "name": "id",
+        "description": "GamePass ID or link",
+        "type": 3,
+        "required": true,
+        "max_length": 300
+      }
+    ]
+  },
+  {
+    "name": "bundle",
+    "description": "Fetch information about a Roblox bundle from a Bundle ID",
+    "type": 1,
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
+    "options": [
+      {
+        "name": "id",
+        "description": "Bundle ID or link",
+        "type": 3,
+        "required": true,
+        "max_length": 300
+      }
+    ]
+  },
+  {
+    "name": "devex",
+    "description": "Show how much USD you get from DevEx for an amount of Robux",
+    "type": 1,
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
+    "options": [
+      {
+        "name": "robux",
+        "description": "Amount of Robux",
+        "type": 4,
+        "required": true,
+        "min_value": 1,
+        "max_value": 1000000000
+      }
+    ]
+  },
+  {
+    "name": "qr",
+    "description": "Make a QR code from text or a link",
+    "type": 1,
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ],
+    "options": [
+      {
+        "name": "text",
+        "description": "Text or link to encode",
+        "type": 3,
+        "required": true,
+        "max_length": 800
+      }
+    ]
+  },
+  {
+    "name": "username",
+    "description": "Check if a Roblox username looks available",
+    "type": 1,
+    "integration_types": [0, 1],
+    "contexts": [0, 1, 2],
+    "options": [
+      { "name": "username", "description": "Username to check", "type": 3, "required": true, "max_length": 20 }
+    ]
+  },
+  {
+    "name": "wearing",
+    "description": "See what a Roblox user is currently wearing",
+    "type": 1,
+    "integration_types": [0, 1],
+    "contexts": [0, 1, 2],
+    "options": [
+      { "name": "user", "description": "Username, user ID or profile link", "type": 3, "required": true, "max_length": 300 }
+    ]
+  },
+  {
+    "name": "universe",
+    "description": "Fetch Roblox game info from a universe ID",
+    "type": 1,
+    "integration_types": [0, 1],
+    "contexts": [0, 1, 2],
+    "options": [
+      { "name": "id", "description": "Universe ID", "type": 3, "required": true, "max_length": 30 }
+    ]
+  },
+  {
+    "name": "userinfo",
+    "description": "Fetch Discord account info for a user",
+    "type": 1,
+    "integration_types": [0, 1],
+    "contexts": [0, 1, 2],
+    "options": [
+      { "name": "user", "description": "The Discord user", "type": 6, "required": true }
+    ]
+  },
+  {
+    "name": "xrp",
+    "description": "Current XRP price in USD",
+    "type": 1,
+    "integration_types": [0, 1],
+    "contexts": [0, 1, 2]
+  },
+  {
+    "name": "textnato",
+    "description": "Convert text to the NATO phonetic alphabet",
+    "type": 1,
+    "integration_types": [0, 1],
+    "contexts": [0, 1, 2],
+    "options": [
+      { "name": "text", "description": "Text to convert", "type": 3, "required": true, "max_length": 200 }
+    ]
+  },
+  {
+    "name": "textreverse",
+    "description": "Reverse any text",
+    "type": 1,
+    "integration_types": [0, 1],
+    "contexts": [0, 1, 2],
+    "options": [
+      { "name": "text", "description": "Text to reverse", "type": 3, "required": true, "max_length": 500 }
+    ]
+  },
+  {
+    "name": "textzalgo",
+    "description": "Convert text to creepy Zalgo text",
+    "type": 1,
+    "integration_types": [0, 1],
+    "contexts": [0, 1, 2],
+    "options": [
+      { "name": "text", "description": "Text to zalgo-fy", "type": 3, "required": true, "max_length": 100 },
+      { "name": "intensity", "description": "1 (subtle) to 8 (chaos) - default 4", "type": 4, "required": false, "min_value": 1, "max_value": 8 }
+    ]
+  },
+  {
+    "name": "help",
+    "description": "What this bot can do",
+    "type": 1,
+    "integration_types": [
+      0,
+      1
+    ],
+    "contexts": [
+      0,
+      1,
+      2
+    ]
+  }
+]
